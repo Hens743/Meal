@@ -4,220 +4,149 @@ import random
 
 # --- Data Loading Function ---
 def load_meals_data(uploaded_file=None):
-    # This function now provides more feedback on its execution
-    
     if uploaded_file:
         try:
-            st.info(f"Attempting to read uploaded file: '{uploaded_file.name}'. File size: {uploaded_file.size} bytes") # Debug info
-            
-            # Determine file type and read accordingly
+            st.info(f"Reading file: **{uploaded_file.name}** ({uploaded_file.size} bytes)")
+
+            # Read file based on extension
             if uploaded_file.name.endswith('.csv'):
                 df = pd.read_csv(uploaded_file)
             elif uploaded_file.name.endswith(('.xls', '.xlsx')):
                 df = pd.read_excel(uploaded_file)
             else:
-                st.error("Unsupported file type. Please upload a CSV or Excel file.")
-                return pd.DataFrame() # Return empty DataFrame on unsupported type
+                st.error("Unsupported file type. Upload a CSV or Excel file.")
+                return pd.DataFrame()
 
-            # Ensure expected columns are present, including 'country'
+            # Ensure required columns exist
             required_columns = ['meal_name', 'category', 'best_seller', 'country']
-            
-            # Debug: show columns found in file
-            st.info(f"Columns found in the file: {df.columns.tolist()}")
-            
-            # Check for missing columns
             missing_cols = [col for col in required_columns if col not in df.columns]
-            if missing_cols:
-                st.error(f"Critical Error: Your uploaded file is missing required columns. Please ensure it has: {', '.join(required_columns)}. Missing: {', '.join(missing_cols)}")
-                return pd.DataFrame() # Returns empty DataFrame on missing columns
-            
-            # Debug: show first few rows
-            if not df.empty:
-                st.info(f"First 3 rows of loaded data:\n{df.head(3).to_string()}")
-            else:
-                st.warning("Warning: The file was read, but the DataFrame is empty. Please check your file content.")
 
-            # Convert 'best_seller' to boolean for easier filtering
-            # Ensure the column exists before attempting conversion
-            if 'best_seller' in df.columns:
-                df['best_seller'] = df['best_seller'].astype(str).str.lower().isin(['yes', 'true'])
-            
-            st.success("File successfully processed into DataFrame.") # Debug success
+            if missing_cols:
+                st.error(f"Missing columns: {', '.join(missing_cols)}.\nPlease include: {', '.join(required_columns)}.")
+                return pd.DataFrame()
+
+            # Display first few rows for context
+            if not df.empty:
+                st.info(f"First 3 rows:\n{df.head(3).to_string()}")
+            else:
+                st.warning("Warning: File read, but no data found.")
+
+            # Convert 'best_seller' to boolean
+            df['best_seller'] = df['best_seller'].astype(str).str.lower().isin(['yes', 'true'])
+
+            st.success("File loaded successfully!")
             return df
+
         except Exception as e:
-            st.error(f"Error reading file: {e}. Please check your file content and format.")
-            st.info("Ensure your CSV/Excel file is not open in another program and is correctly formatted.")
+            st.error(f"Error reading file: {e}. Check file format/content.")
             return pd.DataFrame()
     else:
-        # Option to load hardcoded data for testing
-        if st.sidebar.checkbox("Load Hardcoded Sample Data (for testing)", value=False, key='load_hardcoded_checkbox'): 
+        # Optionally load sample data
+        if st.sidebar.checkbox("Load Hardcoded Sample Data (for testing)", key='load_hardcoded_checkbox'):
             data = {
                 'meal_name': ["Sample Noodles", "Sample Soup", "Sample Sandwich", "Sample Salad", "Sample Chili"],
                 'category': ["Warm Meal", "Soup", "Sandwich", "Salad", "Warm Meal"],
                 'best_seller': [True, False, False, False, True],
                 'country': ["China", "Italy", "USA", "USA", "Mexico"]
             }
-            df = pd.DataFrame(data)
-            st.sidebar.info("Loaded hardcoded sample data.") # Debug info
-            return df
-        
-        # This message will only show if no file is uploaded AND hardcoded data is not selected
-        st.sidebar.warning("No meal data loaded. Please upload a file or select 'Load Hardcoded Sample Data' above.")
-        return pd.DataFrame()
+            st.sidebar.success("Sample data loaded!")
+            return pd.DataFrame(data)
+        else:
+            st.sidebar.warning("No data loaded. Upload a file or enable sample data.")
+            return pd.DataFrame()
 
-# --- Streamlit App Setup ---
+# --- App Setup ---
 st.set_page_config(page_title="Personalized Meal Suggestions", layout="centered")
+st.title("🍽️ Personalized Meal Suggestions")
+st.markdown("Upload your meal list or use sample data to find the perfect meal suggestions.")
 
-st.title("🍽️ Your Personal Meal Suggestion App")
-
-st.markdown("""
-Welcome! Upload your meal list or use the sample data to get personalized meal suggestions.
-""")
-
-# --- Sidebar for Data Upload and Filters ---
+# --- Sidebar: File Upload & Data ---
 st.sidebar.header("Options")
+uploaded_file = st.sidebar.file_uploader("Upload Meal List (CSV or Excel)", type=['csv', 'xlsx', 'xls'])
 
-uploaded_file = st.sidebar.file_uploader("Upload your Meal List (CSV or Excel)", type=['csv', 'xlsx', 'xls'])
+# Initialize session_state
+if 'meals_df' not in st.session_state:
+    st.session_state.meals_df = pd.DataFrame()
 
-# Use a session state variable to track if a file was previously uploaded and loaded
-# This prevents re-loading the hardcoded data if a file was just removed, etc.
 if 'last_uploaded_file_id' not in st.session_state:
     st.session_state.last_uploaded_file_id = None
 
-current_file_id = uploaded_file.file_id if uploaded_file else None
+current_file_id = getattr(uploaded_file, 'file_id', None)
 
-# Only load data if a file is explicitly uploaded/changed, or if it's the very first run and nothing else is loaded
-if uploaded_file is not None and current_file_id != st.session_state.last_uploaded_file_id:
-    # A new file has been uploaded or the existing one changed
+# Load data only when file changes or on first load
+if uploaded_file and current_file_id != st.session_state.last_uploaded_file_id:
     st.session_state.meals_df = load_meals_data(uploaded_file)
     st.session_state.last_uploaded_file_id = current_file_id
-elif 'meals_df' not in st.session_state:
-    # Initial run, no file yet, so check if hardcoded should load
+elif uploaded_file is None and st.session_state.last_uploaded_file_id is not None:
+    # File removed: clear data
+    st.session_state.meals_df = pd.DataFrame()
+    st.session_state.last_uploaded_file_id = None
+elif uploaded_file is None and st.sidebar.checkbox("Load Hardcoded Sample Data (for testing)", key='load_sample_sidebar', value=False):
     st.session_state.meals_df = load_meals_data(None)
-    st.session_state.last_uploaded_file_id = None # No file loaded
 
-# If no file uploaded and hardcoded checkbox was just unselected, ensure df is empty
-if uploaded_file is None and not st.session_state.get('load_hardcoded_checkbox', False) and 'meals_df' in st.session_state and not st.session_state.meals_df.empty:
-     # This part ensures filters disappear if hardcoded data is toggled off and no file is present
-     st.session_state.meals_df = pd.DataFrame()
-
-
-# --- Display Filters and Suggestions (ONLY if data is loaded) ---
+# --- Display Filters & Suggestions ---
 if not st.session_state.meals_df.empty:
-    st.sidebar.success("Meal data loaded successfully! Filters are available.") # Confirmation message
+    st.sidebar.success("Data loaded. Apply filters below:")
 
+    # Filter by category
     st.sidebar.markdown("---")
-    st.sidebar.header("Filter Suggestions")
+    st.sidebar.header("Filter by Category")
+    all_categories = sorted(st.session_state.meals_df['category'].unique())
+    selected_categories = st.sidebar.multiselect("Select Categories:", all_categories)
 
-    # Initialize selected_categories in session_state if not present
-    if 'selected_categories' not in st.session_state:
-        st.session_state.selected_categories = []
+    # Filter by country
+    st.sidebar.header("Filter by Country")
+    all_countries = sorted(st.session_state.meals_df['country'].unique())
+    selected_countries = st.sidebar.multiselect("Select Countries:", all_countries)
 
-    st.sidebar.subheader("Filter by Category")
-    # Create checkboxes for each category (mobile-friendly)
-    temp_selected_categories = []
-    all_categories = sorted(st.session_state.meals_df['category'].unique().tolist()) # Get categories from current data
-    for category in all_categories:
-        if st.sidebar.checkbox(category, key=f"category_checkbox_{category}", value=(category in st.session_state.selected_categories)):
-            temp_selected_categories.append(category)
-    st.session_state.selected_categories = temp_selected_categories # Update the session state after all checkboxes are processed
-
-
-    st.sidebar.markdown("---") # Add a separator for country filter
-    st.sidebar.subheader("Filter by Country")
-    
-    # Initialize selected_countries in session_state if not present
-    if 'selected_countries' not in st.session_state:
-        st.session_state.selected_countries = []
-
-    # Create checkboxes for each country (mobile-friendly)
-    temp_selected_countries = []
-    all_countries = sorted(st.session_state.meals_df['country'].unique().tolist()) # Get countries from current data
-    for country in all_countries:
-        # Use st.checkbox with a unique key and initial value based on session_state
-        if st.sidebar.checkbox(country, key=f"country_checkbox_{country}", value=(country in st.session_state.selected_countries)):
-            temp_selected_countries.append(country)
-    st.session_state.selected_countries = temp_selected_countries # Update the session state after all checkboxes are processed
-
+    # Best Seller filter
     show_best_sellers = st.sidebar.checkbox("Show Only Best Sellers")
-    search_query = st.sidebar.text_input("Search by Meal Name", placeholder="e.g., chicken, soup")
+
+    # Search filter
+    search_query = st.sidebar.text_input("Search Meal Name", placeholder="e.g., chicken, soup")
 
     # --- Apply Filters ---
     filtered_df = st.session_state.meals_df.copy()
-
-    if st.session_state.selected_categories:
-        filtered_df = filtered_df[filtered_df['category'].isin(st.session_state.selected_categories)]
-
-    # Apply country filter based on checkboxes
-    if st.session_state.selected_countries:
-        filtered_df = filtered_df[filtered_df['country'].isin(st.session_state.selected_countries)]
-
+    if selected_categories:
+        filtered_df = filtered_df[filtered_df['category'].isin(selected_categories)]
+    if selected_countries:
+        filtered_df = filtered_df[filtered_df['country'].isin(selected_countries)]
     if show_best_sellers:
-        filtered_df = filtered_df[filtered_df['best_seller'] == True]
-
+        filtered_df = filtered_df[filtered_df['best_seller']]
     if search_query:
-        # Case-insensitive search on meal_name
         filtered_df = filtered_df[filtered_df['meal_name'].str.contains(search_query, case=False, na=False)]
 
-    # --- Determine if results should be shown ---
-    # Results are shown if any filter is active OR 'Surprise Me!' is clicked
-    show_results = (
-        bool(st.session_state.selected_categories) or
-        bool(st.session_state.selected_countries) or
-        bool(search_query) or
-        st.session_state.get('surprise_me_clicked', False) # Check if surprise button was just clicked
-    )
-
-    # "Surprise Me!" button
-    col1, col2 = st.columns([1, 3]) # Use columns for better layout
+    # --- Surprise Me ---
+    col1, col2 = st.columns([1, 3])
     with col1:
         if st.button("✨ Surprise Me!"):
-            st.session_state.surprise_me_clicked = True # Set flag when button is clicked
             if not st.session_state.meals_df.empty:
                 random_meal = st.session_state.meals_df.sample(1).iloc[0]
                 st.info(f"**{random_meal['meal_name']}** ({random_meal['category']}) from {random_meal['country']}")
                 if random_meal['best_seller']:
                     st.write("🏆 This is a **Best Seller!**")
             else:
-                st.warning("Your meal database is empty! Please add some meals first to get a surprise.")
+                st.warning("No meals to suggest. Load data first.")
     with col2:
-        st.write("Get a random meal from your entire collection.")
+        st.write("Get a random meal suggestion from your data.")
 
-    # Reset surprise_me_clicked flag after displaying (or not displaying) results
-    if 'surprise_me_clicked' in st.session_state and st.session_state.surprise_me_clicked:
-        # This ensures the flag is reset on the next rerun, so surprise result doesn't persist
-        # unless surprise button is clicked again or other filters are applied.
-        # However, for a single random display, we might want to keep it true until another filter is applied.
-        # For this logic, we'll let the filter conditions handle showing results.
-        pass # No explicit reset here, as the `show_results` logic handles it.
-
-
-    st.markdown("---") # Separator
-
-    if show_results:
-        st.subheader("Your Meal Suggestions:")
-        if not filtered_df.empty:
-            # Display meals in a grid-like fashion or cards
-            cols = st.columns(3) # Display up to 3 meals per row
-            for index, row in filtered_df.iterrows():
-                with cols[index % 3]: # Cycle through the columns
-                    st.info(f"**{row['meal_name']}**")
-                    st.markdown(f"Category: `{row['category']}`")
-                    st.markdown(f"Country: `{row['country']}`")
-                    if row['best_seller']:
-                        st.markdown("🏆 **Best Seller!**")
-                    st.markdown("---") # Separator for each meal card
-
-        else:
-            st.info("No meals found matching your current filters. Try adjusting your search criteria!")
+    # --- Display Filtered Results ---
+    st.markdown("---")
+    if not filtered_df.empty:
+        st.subheader("Meal Suggestions")
+        cols = st.columns(3)
+        for idx, (_, row) in enumerate(filtered_df.iterrows()):
+            with cols[idx % 3]:
+                st.info(f"**{row['meal_name']}**")
+                st.markdown(f"Category: `{row['category']}`  \nCountry: `{row['country']}`")
+                if row['best_seller']:
+                    st.markdown("🏆 **Best Seller!**")
+                st.markdown("---")
     else:
-        st.info("Please select filters or click 'Surprise Me!' to see meal suggestions.")
-
-
-# This block only executes if no data is loaded at all
+        st.info("No meals found. Adjust filters or search criteria.")
 else:
-    # The warning is already handled within load_meals_data for better context
-    pass 
+    # No data block
+    st.warning("No data loaded yet. Please upload a file or enable sample data.")
 
 st.markdown("---")
 st.write("Built with ❤️ using Streamlit")
