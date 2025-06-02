@@ -385,7 +385,6 @@ st.markdown("""
 st.markdown("<h1 class='center-text'>🍽️ What's For Dinner? 🍽️</h1>", unsafe_allow_html=True)
 st.write("Feeling stuck for meal ideas? Use this app to explore a variety of delicious dishes!")
 
----
 
 ## Filter Your Meal Search
 
@@ -412,8 +411,6 @@ selected_broad_type = st.selectbox(
 
 # Best Seller checkbox
 filter_best_seller = st.checkbox("Show only Best Sellers")
-
----
 
 ## Meal Ideas
 
