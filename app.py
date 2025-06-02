@@ -206,31 +206,6 @@ st.set_page_config(page_title="Personalized Meal Suggestions", layout="centered"
 st.title("🍽️ Your Personal Meal Suggestion App")
 st.markdown("Welcome! Upload your meal list or use the sample data to get personalized meal suggestions.")
 
-# --- Sidebar for Data Upload and Filters ---
-st.sidebar.header("Options")
-uploaded_file = st.sidebar.file_uploader("Upload your Meal List (CSV or Excel)", type=['csv', 'xlsx', 'xls'])
-
-if 'last_uploaded_file_id' not in st.session_state:
-    st.session_state.last_uploaded_file_id = None
-
-current_file_id = uploaded_file.file_id if uploaded_file else None
-
-if uploaded_file is not None and current_file_id != st.session_state.last_uploaded_file_id:
-    st.session_state.meals_df = load_meals_data(uploaded_file)
-    st.session_state.last_uploaded_file_id = current_file_id
-    st.session_state.selected_categories = []
-elif 'meals_df' not in st.session_state:
-    st.session_state.meals_df = load_meals_data(None)
-    st.session_state.last_uploaded_file_id = None
-
-if uploaded_file is None and \
-   not st.session_state.get('load_hardcoded_checkbox', False) and \
-   'meals_df' in st.session_state and \
-   not st.session_state.meals_df.empty and \
-   st.session_state.get('last_uploaded_file_id') is None : 
-    st.session_state.meals_df = pd.DataFrame()
-
-
 # --- Display Filters and Suggestions (ONLY if data is loaded) ---
 if 'meals_df' in st.session_state and not st.session_state.meals_df.empty:
     st.sidebar.success("Meal data loaded successfully! Filters are available.")
