@@ -4,15 +4,6 @@ import random
 
 # Meal list as provided
 meal_list = [
-Understood. I will remove all desserts and other non-meal items (like raw ingredients or side dishes that aren't typically main courses) from the previously provided list and then update the `meal_list`.
-
-Here's the refined list, focusing solely on main courses and substantial savory dishes, with desserts and irrelevant items removed:
-
-```python
-import pandas as pd
-import random
-
-meal_list = [
     # Chilean Meals (14)
     {'meal_name': "Pastel de Choclo Bake", 'category': "Savory Bake", 'best_seller': random.choice([True, False])},
     {'meal_name': "Empanadas Pino (Beef)", 'category': "Savory Bake", 'best_seller': random.choice([True, False])},
