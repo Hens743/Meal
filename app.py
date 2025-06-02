@@ -468,6 +468,4 @@ if not filtered_df.empty:
 else:
     st.warning("No meals found matching your criteria. Try adjusting your filters!")
 
----
-
 st.markdown("<p class='center-text'>Happy cooking! 🍳</p>", unsafe_allow_html=True)
