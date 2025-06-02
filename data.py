@@ -586,7 +586,7 @@ else:
 
 
 
-# Best Seller checkbox
+# favorite checkbox
 
 filter_best_seller = st.checkbox(current_text["best_seller_checkbox"])
 
