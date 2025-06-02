@@ -9,35 +9,33 @@ st.title("🍽️ Personalized Meal Suggestions")
 st.sidebar.header("Options")
 uploaded_file = st.sidebar.file_uploader("Upload Meal List (CSV or Excel)", type=['csv', 'xlsx', 'xls'])
 
-# Initialize session_state if not present
-if 'meals_df' not in st.session_state:
-    st.session_state['meals_df'] = pd.DataFrame()
-
-# Dummy data loading for demonstration (replace with your real load_meals_data function)
+# Load data if uploaded
 if uploaded_file is not None:
-    st.session_state['meals_df'] = pd.DataFrame({
-        'meal_name': ["Pizza", "Burger", "Pasta"],
-        'category': ["Fast Food", "Fast Food", "Italian"],
-        'country': ["USA", "USA", "Italy"],
-        'best_seller': [True, False, True]
-    })
+    if uploaded_file.name.endswith('.csv'):
+        df = pd.read_csv(uploaded_file)
+    elif uploaded_file.name.endswith(('.xls', '.xlsx')):
+        df = pd.read_excel(uploaded_file)
+    else:
+        st.error("Unsupported file type.")
+        df = pd.DataFrame()
+else:
+    df = pd.DataFrame()
 
-# --- Display Filters as Checkboxes ---
-if not st.session_state['meals_df'].empty:
+if not df.empty:
     st.sidebar.markdown("---")
     st.sidebar.header("Filter by Category")
-    all_categories = sorted(st.session_state['meals_df']['category'].unique())
-    selected_categories = [cat for cat in all_categories if st.sidebar.checkbox(cat)]
+    categories = sorted(df['category'].dropna().unique())
+    selected_categories = [cat for cat in categories if st.sidebar.checkbox(cat)]
 
     st.sidebar.header("Filter by Country")
-    all_countries = sorted(st.session_state['meals_df']['country'].unique())
-    selected_countries = [country for country in all_countries if st.sidebar.checkbox(country)]
+    countries = sorted(df['country'].dropna().unique())
+    selected_countries = [c for c in countries if st.sidebar.checkbox(c)]
 
     show_best_sellers = st.sidebar.checkbox("Show Only Best Sellers")
     search_query = st.sidebar.text_input("Search Meal Name")
 
-    # Apply Filters
-    filtered_df = st.session_state['meals_df']
+    # Apply filters
+    filtered_df = df.copy()
     if selected_categories:
         filtered_df = filtered_df[filtered_df['category'].isin(selected_categories)]
     if selected_countries:
@@ -47,12 +45,12 @@ if not st.session_state['meals_df'].empty:
     if search_query:
         filtered_df = filtered_df[filtered_df['meal_name'].str.contains(search_query, case=False, na=False)]
 
-    # Only display if any filter is active
+    # Determine if any filter is active
     filters_active = bool(selected_categories or selected_countries or show_best_sellers or search_query)
 
     # Surprise Me feature
     if st.button("✨ Surprise Me!"):
-        random_meal = st.session_state['meals_df'].sample(1).iloc[0]
+        random_meal = df.sample(1).iloc[0]
         st.info(f"**{random_meal['meal_name']}** ({random_meal['category']}) from {random_meal['country']}")
         if random_meal['best_seller']:
             st.write("🏆 This is a **Best Seller!**")
@@ -74,7 +72,7 @@ if not st.session_state['meals_df'].empty:
     else:
         st.info("Please select filters or use 'Surprise Me!' to see suggestions.")
 else:
-    st.warning("No data loaded yet. Please upload a file or enable sample data.")
+    st.warning("No data loaded yet. Please upload a file.")
 
 st.markdown("---")
 st.write("Built with ❤️ using Streamlit")
