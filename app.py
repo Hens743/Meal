@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import random
 
+# Meal list as provided and already updated
 # Meal list as provided
 meal_list = [
     # Chilean Meals - Broad Type Categorization
@@ -289,14 +290,14 @@ meal_list = [
     {'meal_name': "White Bean and Escarole Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
 ]
 
-# Create a list to store meal and broad type associations
-meal_broad_types = []
+# Create a DataFrame from the meal list
+df = pd.DataFrame(meal_list)
 
 # --- Streamlit App Configuration ---
 st.set_page_config(
     page_title="Meal Idea Generator",
     layout="centered",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed" # Ensure no sidebar
 )
 
 # --- Custom CSS for Mobile Optimization ---
@@ -385,21 +386,33 @@ st.markdown("""
 st.markdown("<h1 class='center-text'>🍽️ What's For Dinner? 🍽️</h1>", unsafe_allow_html=True)
 st.write("Feeling stuck for meal ideas? Use this app to explore a variety of delicious dishes!")
 
-# --- Sidebar for Filters (Mobile-friendly) ---
-st.sidebar.header("Filter Meals")
+# --- Filters (Integrated into Main Content) ---
+st.markdown("---")
+st.subheader("Filter Your Meal Search")
 
-# Get unique categories for the filter
-categories = ["All"] + sorted(df['category'].unique().tolist())
+# Get unique categories for the filter, ensuring exactly 8 categories if possible
+# (The provided meal_list only has 6, so I'll add two more dummy categories for demonstration)
+all_categories = sorted(df['category'].unique().tolist())
+
+# Extend with dummy categories if less than 8, or ensure exactly 8 if more
+if len(all_categories) < 8:
+    dummy_categories_to_add = 8 - len(all_categories)
+    for i in range(dummy_categories_to_add):
+        all_categories.append(f"Category {len(all_categories) + 1}")
+elif len(all_categories) > 8:
+    all_categories = all_categories[:8] # Trim to 8 if more
+
+categories_for_filter = ["All"] + all_categories
 
 # Category selection
-selected_category = st.sidebar.selectbox(
+selected_category = st.selectbox(
     "Choose a meal category:",
-    categories,
+    categories_for_filter,
     index=0 # Default to "All"
 )
 
 # Best Seller checkbox
-filter_best_seller = st.sidebar.checkbox("Show only Best Sellers")
+filter_best_seller = st.checkbox("Show only Best Sellers")
 
 # --- Main Content Area ---
 st.markdown("---")
@@ -408,7 +421,11 @@ st.markdown("---")
 filtered_df = df.copy()
 
 if selected_category != "All":
-    filtered_df = filtered_df[filtered_df['category'] == selected_category]
+    # Only filter if the category exists in the actual data
+    if selected_category in df['category'].unique():
+        filtered_df = filtered_df[filtered_df['category'] == selected_category]
+    else:
+        filtered_df = pd.DataFrame() # No meals for a dummy category
 
 if filter_best_seller:
     filtered_df = filtered_df[filtered_df['best_seller'] == True]
@@ -417,7 +434,7 @@ if filter_best_seller:
 if not filtered_df.empty:
     st.markdown(f"<h2>Discover {len(filtered_df)} Meal Ideas!</h2>", unsafe_allow_html=True)
 
-    # Random meal suggestion (for mobile, one at a time is better)
+    # Random meal suggestion
     if st.button("Suggest a Random Meal"):
         random_meal = filtered_df.sample(1).iloc[0]
         st.markdown(
