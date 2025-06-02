@@ -424,18 +424,20 @@ if len(broad_type_display_options_map) < 8:
 # Convert the map keys to a list for the selectbox options, sorted
 displayed_broad_types = [current_text["all_option"]] + sorted(list(broad_type_display_options_map.keys()))
 
-# Broad Type selection
-selected_broad_type_display_name = st.selectbox(
-    current_text["broad_type_select"],
-    displayed_broad_types,
-    index=0
-)
+# Initialize session state for language if not already set
+if 'language' not in st.session_state:
+    st.session_state.language = "en" # Default language is English
 
-# Convert the selected display name back to its original broad_type for filtering
-if selected_broad_type_display_name == current_text["all_option"]:
-    selected_broad_type_for_filter = None # Use None to indicate "All"
-else:
-    selected_broad_type_for_filter = broad_type_display_options_map.get(selected_broad_type_display_name)
+# Callback function for the toggle
+def toggle_language():
+    if st.session_state.language_toggle: # If toggle is True (checked)
+        st.session_state.language = "es"
+    else: # If toggle is False (unchecked)
+        st.session_state.language = "en"
+    st.experimental_rerun() # Rerun the app to apply language changes
+
+# Get the current text content based on selected language
+current_text = TEXT_CONTENT[st.session_state.language]
 
 
 # Best Seller checkbox
