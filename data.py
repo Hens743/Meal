@@ -359,6 +359,16 @@ st.markdown("""
         margin-bottom: 1rem;
         border-radius: 0.5rem;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        display: flex; /* Use flexbox for image and text layout */
+        flex-direction: column; /* Stack image and text vertically on small screens */
+        align-items: center; /* Center items horizontally */
+        text-align: center; /* Center text */
+    }
+    .meal-card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.25rem;
+        margin-bottom: 0.75rem;
     }
     .meal-card h3 {
         color: #333;
@@ -384,6 +394,29 @@ st.markdown("""
     .center-text {
         text-align: center;
     }
+
+    /* Responsive adjustments for wider screens */
+    @media (min-width: 768px) {
+        h1 {
+            font-size: 2.5em; /* Larger on desktop */
+        }
+        h2 {
+            font-size: 1.8em; /* Larger on desktop */
+        }
+        .stButton > button {
+            width: auto; /* Auto width for desktop button */
+        }
+        .meal-card {
+            flex-direction: row; /* Align image and text horizontally on wider screens */
+            text-align: left; /* Align text to left */
+            padding: 1.5rem;
+        }
+        .meal-card img {
+            max-width: 150px; /* Constrain image width in card */
+            margin-right: 1rem;
+            margin-bottom: 0;
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -405,6 +438,9 @@ st.write(current_text["app_description"])
 
 # --- Filter Your Meal Search
 st.subheader(current_text["filter_header"])
+
+# Search bar
+search_query = st.text_input(current_text["search_bar_label"], "").lower()
 
 # Get unique 'broad_type' categories from the DataFrame for *internal* filtering
 unique_broad_types_from_data = sorted(df['broad_type'].unique().tolist())
@@ -443,13 +479,17 @@ else:
     selected_broad_type_for_filter = broad_type_display_options_map.get(selected_broad_type_display_name)
 
 
-# Favorite checkbox
-filter_favorite = st.checkbox(current_text["favorite_checkbox"])
+# Best Seller checkbox
+filter_best_seller = st.checkbox(current_text["best_seller_checkbox"])
 
 # --- Meal Ideas
 
 # Filter logic
 filtered_df = df.copy()
+
+# Apply search query first
+if search_query:
+    filtered_df = filtered_df[filtered_df['meal_name'].str.lower().str.contains(search_query)]
 
 if selected_broad_type_for_filter is not None:
     # Filter only if the internal broad_type exists in the actual DataFrame
@@ -458,8 +498,8 @@ if selected_broad_type_for_filter is not None:
     else:
         filtered_df = pd.DataFrame() # No meals for a dummy/non-existent broad type
 
-if filter_favorite:
-    filtered_df = filtered_df[filtered_df['favorite'] == True]
+if filter_best_seller:
+    filtered_df = filtered_df[filtered_df['best_seller'] == True]
 
 # Display results
 if not filtered_df.empty:
@@ -471,8 +511,9 @@ if not filtered_df.empty:
         st.markdown(
             f"""
             <div class='meal-card'>
+                <img src="{random_meal['image_url']}" alt="{random_meal['meal_name']}" style="width:100%; height:auto; border-radius:0.25rem; margin-bottom:0.75rem;">
                 <h3>{random_meal['meal_name']} {
-                    f"<span class='best-seller-tag'>{current_text['favorite_tag']}</span>" if random_meal['favorite'] else ""
+                    f"<span class='best-seller-tag'>{current_text['best_seller_tag']}</span>" if random_meal['best_seller'] else ""
                 }</h3>
                 <p><strong>{current_text['broad_type_label']}</strong> {current_text['broad_type_translations'].get(random_meal['broad_type'], random_meal['broad_type'])}</p>
                 <p><strong>{current_text['category_label']}</strong> {random_meal['category']}</p>
@@ -484,15 +525,23 @@ if not filtered_df.empty:
     st.markdown(f"<h2>{current_text['all_matching_meals']}</h2>", unsafe_allow_html=True)
 
     # Display all filtered meals in a mobile-friendly card format
+    # Using columns for wider screens, fallback to single column for mobile
+    # This requires more advanced Streamlit layout management or careful CSS
+    # For simplicity and direct answer, we'll continue using st.markdown for cards
+    # for each meal, leveraging the CSS flexbox for responsive layout within the card.
+    
     for index, row in filtered_df.iterrows():
         st.markdown(
             f"""
             <div class='meal-card'>
-                <h3>{row['meal_name']} {
-                    f"<span class='best-seller-tag'>{current_text['favorite_tag']}</span>" if row['favorite'] else ""
-                }</h3>
-                <p><strong>{current_text['broad_type_label']}</strong> {current_text['broad_type_translations'].get(row['broad_type'], row['broad_type'])}</p>
-                <p><strong>{current_text['category_label']}</strong> {row['category']}</p>
+                <img src="{row['image_url']}" alt="{row['meal_name']}" style="width:100%; height:auto; border-radius:0.25rem; margin-bottom:0.75rem;">
+                <div>
+                    <h3>{row['meal_name']} {
+                        f"<span class='best-seller-tag'>{current_text['best_seller_tag']}</span>" if row['best_seller'] else ""
+                    }</h3>
+                    <p><strong>{current_text['broad_type_label']}</strong> {current_text['broad_type_translations'].get(row['broad_type'], row['broad_type'])}</p>
+                    <p><strong>{current_text['category_label']}</strong> {row['category']}</p>
+                </div>
             </div>
             """, unsafe_allow_html=True
         )
@@ -500,3 +549,4 @@ else:
     st.warning(current_text["no_meals_warning"])
 
 st.markdown(f"<p class='center-text'>{current_text['footer']}</p>", unsafe_allow_html=True)
+
