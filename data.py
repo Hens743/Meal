@@ -292,7 +292,7 @@ def toggle_language():
         st.session_state.language = "es"
     else: # If toggle is False (unchecked)
         st.session_state.language = "en"
-    st.experimental_rerun() # Rerun the app to apply language changes
+    st.rerun() # Rerun the app to apply language changes
 
 # Get the current text content based on selected language
 current_text = TEXT_CONTENT[st.session_state.language]
@@ -402,8 +402,7 @@ st.toggle(
 st.markdown(f"<h1 class='center-text'>{current_text['app_title']}</h1>", unsafe_allow_html=True)
 st.write(current_text["app_description"])
 
-## Filter Your Meal Search
-
+# --- Filter Your Meal Search
 st.subheader(current_text["filter_header"])
 
 # Get unique 'broad_type' categories from the DataFrame for *internal* filtering
@@ -446,7 +445,7 @@ else:
 # Best Seller checkbox
 filter_best_seller = st.checkbox(current_text["best_seller_checkbox"])
 
-## Meal Ideas
+# --- Meal Ideas
 
 # Filter logic
 filtered_df = df.copy()
