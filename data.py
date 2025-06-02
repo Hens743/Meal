@@ -109,9 +109,19 @@ if not st.session_state.meals_df.empty:
     st.sidebar.markdown("---")
     st.sidebar.header("Filter Suggestions")
 
-    # Category selection (multiselect)
-    all_categories = st.session_state.meals_df['category'].unique().tolist()
-    selected_categories = st.sidebar.multiselect("Select Category", sorted(all_categories))
+    # Initialize selected_categories in session_state if not present
+    if 'selected_categories' not in st.session_state:
+        st.session_state.selected_categories = []
+
+    st.sidebar.subheader("Filter by Category")
+    # Create checkboxes for each category (mobile-friendly)
+    temp_selected_categories = []
+    all_categories = sorted(st.session_state.meals_df['category'].unique().tolist()) # Get categories from current data
+    for category in all_categories:
+        if st.sidebar.checkbox(category, key=f"category_checkbox_{category}", value=(category in st.session_state.selected_categories)):
+            temp_selected_categories.append(category)
+    st.session_state.selected_categories = temp_selected_categories # Update the session state after all checkboxes are processed
+
 
     st.sidebar.markdown("---") # Add a separator for country filter
     st.sidebar.subheader("Filter by Country")
@@ -135,8 +145,8 @@ if not st.session_state.meals_df.empty:
     # --- Apply Filters ---
     filtered_df = st.session_state.meals_df.copy()
 
-    if selected_categories:
-        filtered_df = filtered_df[filtered_df['category'].isin(selected_categories)]
+    if st.session_state.selected_categories:
+        filtered_df = filtered_df[filtered_df['category'].isin(st.session_state.selected_categories)]
 
     # Apply country filter based on checkboxes
     if st.session_state.selected_countries:
@@ -149,14 +159,20 @@ if not st.session_state.meals_df.empty:
         # Case-insensitive search on meal_name
         filtered_df = filtered_df[filtered_df['meal_name'].str.contains(search_query, case=False, na=False)]
 
-    # --- Display Meal Suggestions ---
-
-    st.subheader("Your Meal Suggestions:")
+    # --- Determine if results should be shown ---
+    # Results are shown if any filter is active OR 'Surprise Me!' is clicked
+    show_results = (
+        bool(st.session_state.selected_categories) or
+        bool(st.session_state.selected_countries) or
+        bool(search_query) or
+        st.session_state.get('surprise_me_clicked', False) # Check if surprise button was just clicked
+    )
 
     # "Surprise Me!" button
     col1, col2 = st.columns([1, 3]) # Use columns for better layout
     with col1:
         if st.button("✨ Surprise Me!"):
+            st.session_state.surprise_me_clicked = True # Set flag when button is clicked
             if not st.session_state.meals_df.empty:
                 random_meal = st.session_state.meals_df.sample(1).iloc[0]
                 st.info(f"**{random_meal['meal_name']}** ({random_meal['category']}) from {random_meal['country']}")
@@ -167,22 +183,36 @@ if not st.session_state.meals_df.empty:
     with col2:
         st.write("Get a random meal from your entire collection.")
 
+    # Reset surprise_me_clicked flag after displaying (or not displaying) results
+    if 'surprise_me_clicked' in st.session_state and st.session_state.surprise_me_clicked:
+        # This ensures the flag is reset on the next rerun, so surprise result doesn't persist
+        # unless surprise button is clicked again or other filters are applied.
+        # However, for a single random display, we might want to keep it true until another filter is applied.
+        # For this logic, we'll let the filter conditions handle showing results.
+        pass # No explicit reset here, as the `show_results` logic handles it.
+
+
     st.markdown("---") # Separator
 
-    if not filtered_df.empty:
-        # Display meals in a grid-like fashion or cards
-        cols = st.columns(3) # Display up to 3 meals per row
-        for index, row in filtered_df.iterrows():
-            with cols[index % 3]: # Cycle through the columns
-                st.info(f"**{row['meal_name']}**")
-                st.markdown(f"Category: `{row['category']}`")
-                st.markdown(f"Country: `{row['country']}`")
-                if row['best_seller']:
-                    st.markdown("🏆 **Best Seller!**")
-                st.markdown("---") # Separator for each meal card
+    if show_results:
+        st.subheader("Your Meal Suggestions:")
+        if not filtered_df.empty:
+            # Display meals in a grid-like fashion or cards
+            cols = st.columns(3) # Display up to 3 meals per row
+            for index, row in filtered_df.iterrows():
+                with cols[index % 3]: # Cycle through the columns
+                    st.info(f"**{row['meal_name']}**")
+                    st.markdown(f"Category: `{row['category']}`")
+                    st.markdown(f"Country: `{row['country']}`")
+                    if row['best_seller']:
+                        st.markdown("🏆 **Best Seller!**")
+                    st.markdown("---") # Separator for each meal card
 
+        else:
+            st.info("No meals found matching your current filters. Try adjusting your search criteria!")
     else:
-        st.info("No meals found matching your current filters. Try adjusting your search criteria or uploading a different file!")
+        st.info("Please select filters or click 'Surprise Me!' to see meal suggestions.")
+
 
 # This block only executes if no data is loaded at all
 else:
