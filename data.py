@@ -262,7 +262,7 @@ TEXT_CONTENT = {
         "results_header_prefix": "¡Descubre",
         "results_header_suffix": "Ideas de Comida!",
         "suggest_button": "Sugerir una Comida Aleatoria",
-        "favorite_tag": "⭐ Más Vendido",
+        "favorite_tag": "⭐ Favoritos",
         "all_matching_meals": "Todas las Comidas Coincidentes:",
         "broad_type_label": "Tipo Amplio:",
         "category_label": "Categoría:",
