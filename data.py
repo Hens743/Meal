@@ -231,7 +231,7 @@ TEXT_CONTENT = {
         "results_header_prefix": "Discover",
         "results_header_suffix": "Meal Ideas!",
         "suggest_button": "Suggest a Random Meal",
-        "favorite_tag": "⭐ Best Seller",
+        "favorite_tag": "⭐ Favorite",
         "all_matching_meals": "All Matching Meals:",
         "broad_type_label": "Broad Type:",
         "category_label": "Category:",
@@ -443,7 +443,7 @@ else:
     selected_broad_type_for_filter = broad_type_display_options_map.get(selected_broad_type_display_name)
 
 
-# Best Seller checkbox
+# Favorite checkbox
 filter_favorite = st.checkbox(current_text["favorite_checkbox"])
 
 # --- Meal Ideas
