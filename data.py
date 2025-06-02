@@ -5,288 +5,211 @@ import random
 # Meal list (remains the same - data content, not UI text)
 meal_list = [
     # Chilean Meals - Broad Type Categorization
-    {'meal_name': "Pastel de Choclo Bake", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Empanadas Pino (Beef)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Can be baked, but often street food
-    {'meal_name': "Hearty Cazuela Chilena", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Humitas Corn Parcels", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls"}, # Corn is a grain/staple
-    {'meal_name': "Porotos Granados Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Congrio Frito (Fried Conger Eel)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Fried is a form of pan-searing
-    {'meal_name': "Machas a la Parmesana", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Unique seafood prep
-    {'meal_name': "Charquican Beef Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Pebre Chicken Bowl", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Curanto Inspired Seafood Pot", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Pot/Stew
-    {'meal_name': "Sopaipillas Pasadas (savory version context)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fried pastry
-    {'meal_name': "Valdiviano Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Costillar de Chancho Ahumado", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Pastel de Jaiba (Crab Pie)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Pastel de Choclo Bake", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Pastel+de+Choclo+Bake"},
+    {'meal_name': "Empanadas Pino (Beef)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Empanadas+Pino"},
+    {'meal_name': "Hearty Cazuela Chilena", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Cazuela+Chilena"},
+    {'meal_name': "Humitas Corn Parcels", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Humitas+Corn+Parcels"},
+    {'meal_name': "Porotos Granados Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Porotos+Granados+Stew"},
+    {'meal_name': "Congrio Frito (Fried Conger Eel)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Congrio+Frito"},
+    {'meal_name': "Machas a la Parmesana", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Machas+a+la+Parmesana"},
+    {'meal_name': "Charquican Beef Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Charquican+Beef+Stew"},
+    {'meal_name': "Pebre Chicken Bowl", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Pebre+Chicken+Bowl"},
+    {'meal_name': "Curanto Inspired Seafood Pot", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Curanto+Seafood+Pot"},
+    {'meal_name': "Sopaipillas Pasadas (savory version context)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Sopaipillas+Pasadas"},
+    {'meal_name': "Valdiviano Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Valdiviano+Soup"},
+    {'meal_name': "Costillar de Chancho Ahumado", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Costillar+de+Chancho"},
+    {'meal_name': "Pastel de Jaiba (Crab Pie)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Pastel+de+Jaiba"},
 
     # Peruvian Meals - Broad Type Categorization
-    {'meal_name': "Lomo Saltado Style Beef", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Stir-fried, so direct heat
-    {'meal_name': "Ceviche Clasico", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"}, # Cold, light, raw
+    {'meal_name': "Lomo Saltado Style Beef", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/87CEEB/000000?text=Lomo+Saltado"},
+    {'meal_name': "Ceviche Clasico", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/87CEEB/000000?text=Ceviche+Clasico"},
 
     # French Meals - Broad Type Categorization
-    {'meal_name': "Classic French Onion Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Quiche Lorraine", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Ratatouille", 'category': "Vegetarian Delight", 'best_seller': False, 'broad_type': "Roasted & Baked Dishes"}, # Often baked or slow-cooked
-    {'meal_name': "Mushroom Bourguignon", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Stew
-    {'meal_name': "Steak au Poivre with Red Wine Pan Sauce", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Duck à l'Orange", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Julia Child's Favorite Roast Chicken", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Lyon-Style Chicken with Vinegar Sauce", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Pan-seared then sauced
-    {'meal_name': "Crispy Monkfish with Capers", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Beef Stew in Red Wine Sauce (Boeuf Bourguignon)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Chicken Legs Coq au Vin", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Stuffed Pork Tenderloins with Bacon and Apple-Riesling Sauce", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "French Egg Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Chicken Cordon Bleu", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Breaded and often fried/baked
-    {'meal_name': "Lyonnaise Potatoes (Pommes de terre à la Lyonnaise)", 'category': "Side Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"}, # Often baked/roasted to crisp
-    {'meal_name': "Lamb Navarin (Navarin d'agneau)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "French-Style Potato and Green Bean Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "White Asparagus à la Grenobloise", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"}, # Light meal, cooked asparagus
-    {'meal_name': "French Beef Daube (Traditional Provençal Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Braised Pork Loin with Prunes (Porc aux pruneaux)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Beer-Braised Spiced Pork Shanks", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Braised is close to stewing
-    {'meal_name': "Classic French Coq Au Vin Rouge", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Chicken Fricassée with Shallots and Bacon", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Creamy stew-like
-    {'meal_name': "Creamy French Chicken Tarragon (Poulet à l'Estragon)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Creamy stew-like
-    {'meal_name': "Clementine Roast Chicken with Fennel and Honey", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "French Chicken Marengo", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Stew-like
-    {'meal_name': "Sardine White Bean Cakes (Croquettes de Sardine)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Cakes/fritters
-    {'meal_name': "French Chicken And Mushroom Pie (Tourte)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "French Warm Goat Cheese Salad (Salade de Chèvre Chaud)", 'category': "Salad", 'best_seller': False, 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "French Antillean Cod Fritters (Accras de Morue)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fritters
-    {'meal_name': "Tourtière (French Canadian Meat Pie)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Caramelized Onion Tart (Tarte à l'Oignon Alsacienne)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Classic French Onion Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=French+Onion+Soup"},
+    {'meal_name': "Quiche Lorraine", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Quiche+Lorraine"},
+    {'meal_name': "Ratatouille", 'category': "Vegetarian Delight", 'best_seller': False, 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Ratatouille"},
+    {'meal_name': "Mushroom Bourguignon", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Mushroom+Bourguignon"},
+    {'meal_name': "Steak au Poivre with Red Wine Pan Sauce", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Steak+au+Poivre"},
+    {'meal_name': "Duck à l'Orange", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Duck+a+l+Orange"},
+    {'meal_name': "Julia Child's Favorite Roast Chicken", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Roast+Chicken"},
+    {'meal_name': "Lyon-Style Chicken with Vinegar Sauce", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Lyon-Style+Chicken"},
+    {'meal_name': "Crispy Monkfish with Capers", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Crispy+Monkfish"},
+    {'meal_name': "Beef Stew in Red Wine Sauce (Boeuf Bourguignon)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Boeuf+Bourguignon"},
+    {'meal_name': "Chicken Legs Coq au Vin", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Coq+au+Vin"},
+    {'meal_name': "Stuffed Pork Tenderloins with Bacon and Apple-Riesling Sauce", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Stuffed+Pork"},
+    {'meal_name': "French Egg Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=French+Egg+Salad"},
+    {'meal_name': "Chicken Cordon Bleu", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Chicken+Cordon+Bleu"},
+    {'meal_name': "Lyonnaise Potatoes (Pommes de terre à la Lyonnaise)", 'category': "Side Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Lyonnaise+Potatoes"},
+    {'meal_name': "Lamb Navarin (Navarin d'agneau)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Lamb+Navarin"},
+    {'meal_name': "French-Style Potato and Green Bean Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Potato+Green+Bean+Salad"},
+    {'meal_name': "White Asparagus à la Grenobloise", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=White+Asparagus"},
+    {'meal_name': "French Beef Daube (Traditional Provençal Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=French+Beef+Daube"},
+    {'meal_name': "Braised Pork Loin with Prunes (Porc aux pruneaux)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Braised+Pork+Loin"},
+    {'meal_name': "Beer-Braised Spiced Pork Shanks", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Beer-Braised+Pork"},
+    {'meal_name': "Classic French Coq Au Vin Rouge", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Coq+Au+Vin+Rouge"},
+    {'meal_name': "Chicken Fricassée with Shallots and Bacon", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Chicken+Fricassee"},
+    {'meal_name': "Creamy French Chicken Tarragon (Poulet à l'Estragon)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Chicken+Tarragon"},
+    {'meal_name': "Clementine Roast Chicken with Fennel and Honey", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Clementine+Roast+Chicken"},
+    {'meal_name': "French Chicken Marengo", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Chicken+Marengo"},
+    {'meal_name': "Sardine White Bean Cakes (Croquettes de Sardine)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Sardine+Cakes"},
+    {'meal_name': "French Chicken And Mushroom Pie (Tourte)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Chicken+Mushroom+Pie"},
+    {'meal_name': "French Warm Goat Cheese Salad (Salade de Chèvre Chaud)", 'category': "Salad", 'best_seller': False, 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Goat+Cheese+Salad"},
+    {'meal_name': "French Antillean Cod Fritters (Accras de Morue)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Cod+Fritters"},
+    {'meal_name': "Tourtière (French Canadian Meat Pie)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Tourtiere"},
+    {'meal_name': "Caramelized Onion Tart (Tarte à l'Oignon Alsacienne)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/ADD8E6/000000?text=Caramelized+Onion+Tart"},
 
     # Spanish Meals - Broad Type Categorization
-    {'meal_name': "Vegetable Paella", 'category': "Rice Bowl", 'best_seller': False, 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Gazpacho Andaluz", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Arroz con Pollo", 'category': "Rice Bowl", 'best_seller': False, 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Tortilla Española (potato, egg, and onion omelet)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Omelet/frittata style
-    {'meal_name': "Albóndigas (meatballs in sauce)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Meatballs are a distinct type
-    {'meal_name': "Fabada (white bean stew with meats)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Zarzuela (fish and shellfish stew)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Fideuá (vermicelli with shellfish)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"}, # Vermicelli is a type of noodle/pasta
-    {'meal_name': "Cocido (a garbanzo dish with meats)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Patatas aliñadás from Cadiz (potato salad)", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Pisto (fried vegetables)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fried vegetables, can be a side or light meal
-    {'meal_name': "Marmitako (tuna and potato stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Revuelto de patatas (scrambled potatoes)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Scrambled dishes
-    {'meal_name': "Tortilla campera (vegetable and egg omelet)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Omelet
-    {'meal_name': "Ensaladilla Rusa (a rich potato salad)", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Authentic Spanish Cocido Stew Croquettes", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Croquettes are a type of fried/baked specialty
-    {'meal_name': "Spanish Green Beans and Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Often pan-fried or sautéed
-    {'meal_name': "Spanish Lentil Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Vegetable Paella", 'category': "Rice Bowl", 'best_seller': False, 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Vegetable+Paella"},
+    {'meal_name': "Gazpacho Andaluz", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Gazpacho+Andaluz"},
+    {'meal_name': "Arroz con Pollo", 'category': "Rice Bowl", 'best_seller': False, 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Arroz+con+Pollo"},
+    {'meal_name': "Tortilla Española (potato, egg, and onion omelet)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Tortilla+Espanola"},
+    {'meal_name': "Albóndigas (meatballs in sauce)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Albondigas"},
+    {'meal_name': "Fabada (white bean stew with meats)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Fabada"},
+    {'meal_name': "Zarzuela (fish and shellfish stew)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Zarzuela"},
+    {'meal_name': "Fideuá (vermicelli with shellfish)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Fideua"},
+    {'meal_name': "Cocido (a garbanzo dish with meats)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Cocido"},
+    {'meal_name': "Patatas aliñadás from Cadiz (potato salad)", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Patatas+alinadas"},
+    {'meal_name': "Pisto (fried vegetables)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Pisto"},
+    {'meal_name': "Marmitako (tuna and potato stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Marmitako"},
+    {'meal_name': "Revuelto de patatas (scrambled potatoes)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Revuelto+de+patatas"},
+    {'meal_name': "Tortilla campera (vegetable and egg omelet)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Tortilla+campera"},
+    {'meal_name': "Ensaladilla Rusa (a rich potato salad)", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Ensaladilla+Rusa"},
+    {'meal_name': "Authentic Spanish Cocido Stew Croquettes", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Cocido+Croquettes"},
+    {'meal_name': "Spanish Green Beans and Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Spanish+Green+Beans"},
+    {'meal_name': "Spanish Lentil Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFC0CB/000000?text=Spanish+Lentil+Soup"},
 
     # Japanese Meals - Broad Type Categorization
-    {'meal_name': "Pork Belly Ramen", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Miso Soup with Tofu", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Sushi Bowl (Chirashi-style)", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Sushi", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Unique preparation, often light meal
-    {'meal_name': "Udon", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-    {'meal_name': "Tempura", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fried specialty
-    {'meal_name': "Yakitori", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Sashimi", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"}, # Raw fish, light meal
-    {'meal_name': "Donburi", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Oden", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Tamagoyaki", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Omelet/egg dish
-    {'meal_name': "Soba", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-    {'meal_name': "Tonkatsu", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fried cutlet
-    {'meal_name': "Sukiyaki", 'category': "Hot Pot", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Hot pot is a form of stew/soup
-    {'meal_name': "Okonomiyaki", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Savory pancake
-    {'meal_name': "Nikujaga", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Curry Rice", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Unagi no Kabayaki", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Grilled eel
-    {'meal_name': "Shabu Shabu Hot Pot", 'category': "Hot Pot", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Pork Belly Ramen", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Pork+Belly+Ramen"},
+    {'meal_name': "Miso Soup with Tofu", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Miso+Soup+with+Tofu"},
+    {'meal_name': "Sushi Bowl (Chirashi-style)", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Sushi+Bowl"},
+    {'meal_name': "Sushi", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Sushi"},
+    {'meal_name': "Udon", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Udon"},
+    {'meal_name': "Tempura", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Tempura"},
+    {'meal_name': "Yakitori", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Yakitori"},
+    {'meal_name': "Sashimi", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Sashimi"},
+    {'meal_name': "Donburi", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Donburi"},
+    {'meal_name': "Oden", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Oden"},
+    {'meal_name': "Tamagoyaki", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Tamagoyaki"},
+    {'meal_name': "Soba", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Soba"},
+    {'meal_name': "Tonkatsu", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Tonkatsu"},
+    {'meal_name': "Sukiyaki", 'category': "Hot Pot", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Sukiyaki"},
+    {'meal_name': "Okonomiyaki", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Okonomiyaki"},
+    {'meal_name': "Nikujaga", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Nikujaga"},
+    {'meal_name': "Curry Rice", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Curry+Rice"},
+    {'meal_name': "Unagi no Kabayaki", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Unagi+no+Kabayaki"},
+    {'meal_name': "Shabu Shabu Hot Pot", 'category': "Hot Pot", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/90EE90/000000?text=Shabu+Shabu+Hot+Pot"},
 
     # Mexican Meals - Broad Type Categorization
-    {'meal_name': "Sweet Potato and Black Bean Tacos", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Tacos are street food
-    {'meal_name': "Beef Burrito Bowl", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Chicken Fajitas Platter", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Grilled/Sautéed
-    {'meal_name': "Salsa Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Can be pan-seared/baked
-    {'meal_name': "Easy Chorizo Street Tacos", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"},
-    {'meal_name': "Mexican Casserole", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Easy Spicy Mexican-American Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Often pan-seared or baked
-    {'meal_name': "Suegra's Tomatillo Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Cooked in sauce, stew-like
-    {'meal_name': "Salsa Verde Pork", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Cooked in sauce, stew-like
-    {'meal_name': "Papas con Chorizo (Mexican Chorizo and Potatoes)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Sautéed
-    {'meal_name': "Flaming Slow Cooker Pork", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Slow cooked often results in stew-like consistency
-    {'meal_name': "Delia's Grilled Shrimp Sonora", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Mexican Mostaccioli", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-    {'meal_name': "Taco-Seasoned Salmon", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Often grilled or pan-seared
-    {'meal_name': "Quesadillas de Flor de Calabaza (Zucchini Blossom Quesadillas)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Quesadillas are specialty/street food
+    {'meal_name': "Sweet Potato and Black Bean Tacos", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Sweet+Potato+Tacos"},
+    {'meal_name': "Beef Burrito Bowl", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Beef+Burrito+Bowl"},
+    {'meal_name': "Chicken Fajitas Platter", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Chicken+Fajitas"},
+    {'meal_name': "Salsa Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Salsa+Chicken"},
+    {'meal_name': "Easy Chorizo Street Tacos", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Chorizo+Street+Tacos"},
+    {'meal_name': "Mexican Casserole", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Mexican+Casserole"},
+    {'meal_name': "Easy Spicy Mexican-American Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Spicy+Mexican+Chicken"},
+    {'meal_name': "Suegra's Tomatillo Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Tomatillo+Chicken"},
+    {'meal_name': "Salsa Verde Pork", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Salsa+Verde+Pork"},
+    {'meal_name': "Papas con Chorizo (Mexican Chorizo and Potatoes)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Papas+con+Chorizo"},
+    {'meal_name': "Flaming Slow Cooker Pork", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Slow+Cooker+Pork"},
+    {'meal_name': "Delia's Grilled Shrimp Sonora", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Grilled+Shrimp+Sonora"},
+    {'meal_name': "Mexican Mostaccioli", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Mexican+Mostaccioli"},
+    {'meal_name': "Taco-Seasoned Salmon", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Taco-Seasoned+Salmon"},
+    {'meal_name': "Quesadillas de Flor de Calabaza (Zucchini Blossom Quesadillas)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFA07A/000000?text=Zucchini+Blossom+Quesadillas"},
 
     # Thai Meals - Broad Type Categorization
-    {'meal_name': "Thai Green Curry with Tofu", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Curry is a type of stew
-    {'meal_name': "Pad Thai Noodles", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-    {'meal_name': "Khao Soi (Thai Coconut Noodle Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Thai Larb Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Thai Massaman Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Thai Fish Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Thai Noodle Salad with Peanut Sauce", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Pad See Ew", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-    {'meal_name': "Thai Red Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Tom Kha Gai (Thai Coconut Chicken Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Thai Basil Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Stir-fried
-    {'meal_name': "Thai Eggplant Stir-Fry", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Stir-fried
-    {'meal_name': "Thai Pineapple Fried Rice", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Thai Grilled Eggplant Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Thai Coconut Chicken Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Thai Chicken Satay with Peanut Dipping Sauce", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Thai Baked Chicken and Rice", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Thai Turkey Burgers", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Burgers
-    {'meal_name': "Thai Curry Meatballs", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Meatballs
-    {'meal_name': "Thai Burritos with Peanut Sauce", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"}, # Burritos are wraps
+    {'meal_name': "Thai Green Curry with Tofu", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Green+Curry"},
+    {'meal_name': "Pad Thai Noodles", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Pad+Thai+Noodles"},
+    {'meal_name': "Khao Soi (Thai Coconut Noodle Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Khao+Soi"},
+    {'meal_name': "Thai Larb Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Larb+Salad"},
+    {'meal_name': "Thai Massaman Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Massaman+Curry"},
+    {'meal_name': "Thai Fish Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Fish+Curry"},
+    {'meal_name': "Thai Noodle Salad with Peanut Sauce", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Noodle+Salad"},
+    {'meal_name': "Pad See Ew", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Pad+See+Ew"},
+    {'meal_name': "Thai Red Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Red+Curry"},
+    {'meal_name': "Tom Kha Gai (Thai Coconut Chicken Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Tom+Kha+Gai"},
+    {'meal_name': "Thai Basil Chicken", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Basil+Chicken"},
+    {'meal_name': "Thai Eggplant Stir-Fry", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Eggplant+Stir-Fry"},
+    {'meal_name': "Thai Pineapple Fried Rice", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Pineapple+Fried+Rice"},
+    {'meal_name': "Thai Grilled Eggplant Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Grilled+Eggplant+Salad"},
+    {'meal_name': "Thai Coconut Chicken Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Coconut+Chicken+Salad"},
+    {'meal_name': "Thai Chicken Satay with Peanut Dipping Sauce", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Chicken+Satay"},
+    {'meal_name': "Thai Baked Chicken and Rice", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Baked+Chicken+and+Rice"},
+    {'meal_name': "Thai Turkey Burgers", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Turkey+Burgers"},
+    {'meal_name': "Thai Curry Meatballs", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Curry+Meatballs"},
+    {'meal_name': "Thai Burritos with Peanut Sauce", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps", 'image_url': "https://placehold.co/300x200/DDA0DD/000000?text=Thai+Burritos"},
 
     # Vietnamese Meals - Broad Type Categorization
-    {'meal_name': "Phở (Beef Noodle Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Bánh Mì (Vietnamese Sandwich)", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Cơm Tấm (Broken Rice)", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Bún Bò Huế (Hue Style Beef Noodle Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Gỏi cuốn (Fresh Spring Rolls)", 'category': "Appetizer/Light Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"}, # Cold rolls, light meal
-    {'meal_name': "Canh (Vietnamese Soups)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Bánh cuốn (Steamed Rice Rolls)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Steamed rolls
-    {'meal_name': "Cháo (Rice Porridge)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Cha Ca Ha Noi (Hanoi Grilled Fish)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Cá Kho Tộ (Caramelized Fish in Clay Pot)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Pot cooked, stew-like
-    {'meal_name': "Bánh xèo (Crispy Pancakes)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Pancakes
-    {'meal_name': "Bun bo nam bo (Beef Noodle Salad)", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Bo luc lac (Shaking Beef)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Shaking beef is quick seared
-    {'meal_name': "Banh goi (Fried Pastry)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fried pastry
+    {'meal_name': "Phở (Beef Noodle Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Pho"},
+    {'meal_name': "Bánh Mì (Vietnamese Sandwich)", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Banh+Mi"},
+    {'meal_name': "Cơm Tấm (Broken Rice)", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Com+Tam"},
+    {'meal_name': "Bún Bò Huế (Hue Style Beef Noodle Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Bun+Bo+Hue"},
+    {'meal_name': "Gỏi cuốn (Fresh Spring Rolls)", 'category': "Appetizer/Light Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Fresh+Spring+Rolls"},
+    {'meal_name': "Canh (Vietnamese Soups)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Canh"},
+    {'meal_name': "Bánh cuốn (Steamed Rice Rolls)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Steamed+Rice+Rolls"},
+    {'meal_name': "Cháo (Rice Porridge)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Chao"},
+    {'meal_name': "Cha Ca Ha Noi (Hanoi Grilled Fish)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Hanoi+Grilled+Fish"},
+    {'meal_name': "Cá Kho Tộ (Caramelized Fish in Clay Pot)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Caramelized+Fish"},
+    {'meal_name': "Bánh xèo (Crispy Pancakes)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Crispy+Pancakes"},
+    {'meal_name': "Bun bo nam bo (Beef Noodle Salad)", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Beef+Noodle+Salad"},
+    {'meal_name': "Bo luc lac (Shaking Beef)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Shaking+Beef"},
+    {'meal_name': "Banh goi (Fried Pastry)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFB6C1/000000?text=Fried+Pastry"},
 
     # Indonesian Meals - Broad Type Categorization
-    {'meal_name': "Nasi goreng (Fried Rice)", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls"},
-    {'meal_name': "Mie goreng (Fried Noodles)", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-    {'meal_name': "Sate (Grilled Skewers)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Rendang (Beef Curry)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Curry is a type of stew
-    {'meal_name': "Rawon (Beef Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Soto (Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Perkedel (Potato Patties)", 'category': "Side Dish/Light Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Patties/Fritters
-    {'meal_name': "Bebek goreng (Fried Duck)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Fried is a form of pan-searing
-    {'meal_name': "Kare (Curry)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Ayam bakar Taliwang (Grilled Chicken)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Bakso (Meatball Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Gado-gado (Vegetable Salad with Peanut Sauce)", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Batagor (Fried Tofu with Meatball)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fried specialty
-    {'meal_name': "Babi guling (Roasted Suckling Pig)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Pepes (Herbal Packet)", 'category': "Steamed Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Steamed specialty
+    {'meal_name': "Nasi goreng (Fried Rice)", 'category': "Rice Bowl", 'best_seller': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Nasi+Goreng"},
+    {'meal_name': "Mie goreng (Fried Noodles)", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Mie+Goreng"},
+    {'meal_name': "Sate (Grilled Skewers)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Sate"},
+    {'meal_name': "Rendang (Beef Curry)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Rendang"},
+    {'meal_name': "Rawon (Beef Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Rawon"},
+    {'meal_name': "Soto (Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Soto"},
+    {'meal_name': "Perkedel (Potato Patties)", 'category': "Side Dish/Light Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Perkedel"},
+    {'meal_name': "Bebek goreng (Fried Duck)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Bebek+Goreng"},
+    {'meal_name': "Kare (Curry)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Kare"},
+    {'meal_name': "Ayam bakar Taliwang (Grilled Chicken)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Ayam+Bakar+Taliwang"},
+    {'meal_name': "Bakso (Meatball Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Bakso"},
+    {'meal_name': "Gado-gado (Vegetable Salad with Peanut Sauce)", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Gado-gado"},
+    {'meal_name': "Batagor (Fried Tofu with Meatball)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Batagor"},
+    {'meal_name': "Babi guling (Roasted Suckling Pig)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Babi+Guling"},
+    {'meal_name': "Pepes (Herbal Packet)", 'category': "Steamed Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFDAB9/000000?text=Pepes"},
 
     # Filipino Meals - Broad Type Categorization
-    {'meal_name': "Adobo (Pork or Chicken Stewed in Soy Sauce and Vinegar)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Afritada (Chicken or Pork Stewed in Tomato Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Barbecue (Inihaw, Inasal, Satti) (Grilled Meat Skewers)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Bopis (Spicy Pork Lungs and Heart)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Unique organ meat dish
-    {'meal_name': "Camaron rebosado (Deep Fried Battered Shrimps)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fried specialty
-    {'meal_name': "Chicken pastel (Chicken Stew in Cream Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Crispy pata (Deep Fried Pork Leg)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"}, # Deep fried then roasted for crisp
-    {'meal_name': "Crispy tadyang ng baka (Crispy Beef Ribs)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fried specialty
-    {'meal_name': "Curacha (Boiled or Steamed Sea Crab)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Steamed or boiled, but often served as a main dish with other preparations
-    {'meal_name': "Daing (Fried Dried Fish)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Fried
-    {'meal_name': "Embutido (Meatloaf)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"}, # Meatloaf is baked
-    {'meal_name': "Escabeche (Sweet and Sour Fish)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Fish is fried then sauced
-    {'meal_name': "Giniling (Picadillo) (Ground Pork or Beef)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Ground meat dish
-    {'meal_name': "Halabos na hipon (Steamed Shrimps)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"}, # Steamed, often light
-    {'meal_name': "Hamonado (Sweet Glazed Pork)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"}, # Often roasted
-    {'meal_name': "Humba (Sweet Pork Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Inasal na manok (Grilled Chicken)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Inihaw na liempo (Grilled Pork Belly)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Inun-unan (Fish Stewed in Vinegar)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Kadyos-Baboy-Langka (Pigeon Peas, Pork, and Jackfruit Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Kadyos Manok Ubad (Pigeon Peas, Chicken, and Banana Stalk Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Kaldereta (Meat Stew in Tomato Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Kinunot (Shredded Stingray or Shark in Coconut Milk)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Stew-like
-    {'meal_name': "Bicol Express (Pork Cooked in Coconut Milk and Chili)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Stew-like
-    {'meal_name': "Filipino Spaghetti (Sweet and Meaty Spaghetti)", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-    {'meal_name': "Pork Menudo (Pork Stew with Tomatoes and Potatoes)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Chicken Tinola (Chicken Soup with Ginger and Papaya)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Arroz Caldo (Chicken Rice Porridge)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Pinakbet (Vegetable Stew with Shrimp Paste)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Stew
-    {'meal_name': "Kare-Kare (Stew with Peanut Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Lumpia (Spring Rolls)", 'category': "Appetizer/Light Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Spring rolls
-    {'meal_name': "Filipino Chicken Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Curry
-    {'meal_name': "Sinigang na Hipon (Sour Shrimp Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Beef Caldereta (Beef Stew in Tomato Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Bistek Tagalog (Beef Braised in Soy Sauce and Citrus)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Often pan-seared or braised
-    {'meal_name': "Adobong Pusit (Squid Adobo)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Stewed
-    {'meal_name': "Tortang Talong (Eggplant Omelette)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Omelet
-    {'meal_name': "Lechon (Roasted Pig)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Pancit Palabok (Noodle Dish with Shrimp Sauce)", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-
-    # Scandinavian Meals - Broad Type Categorization
-    {'meal_name': "Gravlax (Cured Salmon)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"}, # Cured fish, light meal
-    {'meal_name': "Köttbullar (Swedish Meatballs)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Meatballs
-    {'meal_name': "Smørrebrød (Danish Open-Faced Sandwich)", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Smörgåsbord (Swedish Buffet)", 'category': "Variety", 'best_seller': random.choice([True, False]), 'broad_type': "Global & Fusion Favorites"}, # Buffet style, not a single meal type
-    {'meal_name': "Stegt Flæsk (Roast Pork)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Lamm i kål (Lamb and Cabbage Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Pickled Herring", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"}, # Light meal
-    {'meal_name': "Norwegian Fish Cakes with Dill Mayonnaise (Fiskekaker)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fish cakes/patties
-    {'meal_name': "Danish Breaded Pork Patties (Krebinetter)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Patties
-    {'meal_name': "Norwegian Fish Soup (Fiskesuppe)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Danish Pork Roast (Flæskesteg)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Norwegian Fish Casserole (Fiskegrateng)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-
-    # General Meals - Broad Type Categorization
-    {'meal_name': "Classic Chicken Roast", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Beef & Ale Stew", 'category': "Stew", 'best_seller': True, 'broad_type': "Soups & Stews"},
-    {'meal_name': "Spicy Lamb Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Curry is a stew
-    {'meal_name': "Mushroom Risotto", 'category': "Pasta Dish", 'best_seller': True, 'broad_type': "Rice & Grain Bowls"}, # Risotto is a rice dish
-    {'meal_name': "Shepherd's Pie", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Chicken Tikka Masala", 'category': "Warm Meal", 'best_seller': True, 'broad_type': "Soups & Stews"}, # Curry is a stew
-    {'meal_name': "Hearty Beef Goulash", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Lemon Herb Roasted Chicken", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Spicy Chorizo and Bean Casserole", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Slow-Cooked Pulled Pork", 'category': "Warm Meal", 'best_seller': True, 'broad_type': "Specialty & Street Foods"}, # Often served in sandwiches/tacos, or as a main dish with a unique prep
-    {'meal_name': "Stuffed Bell Peppers with Quinoa", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"}, # Often baked
-    {'meal_name': "Beef Stroganoff with Noodles", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-    {'meal_name': "Baked Salmon with Asparagus", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Chicken and Mushroom Pie", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Lentil Shepherd's Pie", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "Pork Chops with Apple Sauce", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Often pan-seared
-    {'meal_name': "Vegetable Stir-fry with Noodles", 'category': "Warm Meal", 'best_seller': False, 'broad_type': "Noodles & Pasta"},
-    {'meal_name': "Classic Meatloaf", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
-    {'meal_name': "BBQ Ribs", 'category': "Grilled Dish", 'best_seller': True, 'broad_type': "Grilled & Pan-Seared"},
-    {'meal_name': "Spinach and Ricotta Stuffed Shells", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
-
-    # Soups
-    {'meal_name': "Creamy Tomato Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Chicken Noodle Soup", 'category': "Soup", 'best_seller': True, 'broad_type': "Soups & Stews"},
-    {'meal_name': "Butternut Squash Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Lentil and Vegetable Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Spicy Black Bean Soup", 'category': "Soup", 'best_seller': False, 'broad_type': "Soups & Stews"},
-    {'meal_name': "Potato Leek Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Lobster Bisque", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-
-    # Sandwiches
-    {'meal_name': "Classic BLT Sandwich", 'category': "Sandwich", 'best_seller': True, 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Grilled Cheese Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Turkey Club Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Roast Beef Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Veggie Delight Sandwich", 'category': "Sandwich", 'best_seller': False, 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Pulled Pork Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Chicken Salad Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Tuna Melt Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
-    {'meal_name': "Falafel Pita Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
-
-    # Salads
-    {'meal_name': "Chicken Caesar Salad", 'category': "Salad", 'best_seller': True, 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Greek Salad with Feta", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Cobb Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Quinoa Salad with Roasted Vegetables", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Taco Salad with Beef", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Pasta Salad with Pesto", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Asian Chicken Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-    {'meal_name': "Lentil Salad with Herbs", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
-
-    # Stews
-    {'meal_name': "Hungarian Goulash", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Seafood Cioppino", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Chickpea and Spinach Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Brazilian Feijoada", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Spicy Sausage and Kale Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "Root Vegetable Stew", 'category': "Vegetarian Delight", 'best_seller': False, 'broad_type': "Soups & Stews"},
-    {'meal_name': "Moroccan Chicken Tagine", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
-    {'meal_name': "White Bean and Escarole Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Adobo (Pork or Chicken Stewed in Soy Sauce and Vinegar)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Adobo"},
+    {'meal_name': "Afritada (Chicken or Pork Stewed in Tomato Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Afritada"},
+    {'meal_name': "Barbecue (Inihaw, Inasal, Satti) (Grilled Meat Skewers)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Filipino+BBQ"},
+    {'meal_name': "Bopis (Spicy Pork Lungs and Heart)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Bopis"},
+    {'meal_name': "Camaron rebosado (Deep Fried Battered Shrimps)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Camaron+Rebosado"},
+    {'meal_name': "Chicken pastel (Chicken Stew in Cream Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Chicken+Pastel"},
+    {'meal_name': "Crispy pata (Deep Fried Pork Leg)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Crispy+Pata"},
+    {'meal_name': "Crispy tadyang ng baka (Crispy Beef Ribs)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Crispy+Beef+Ribs"},
+    {'meal_name': "Curacha (Boiled or Steamed Sea Crab)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Curacha"},
+    {'meal_name': "Daing (Fried Dried Fish)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Daing"},
+    {'meal_name': "Embutido (Meatloaf)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Embutido"},
+    {'meal_name': "Escabeche (Sweet and Sour Fish)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Escabeche"},
+    {'meal_name': "Giniling (Picadillo) (Ground Pork or Beef)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Giniling"},
+    {'meal_name': "Halabos na hipon (Steamed Shrimps)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Halabos+na+Hipon"},
+    {'meal_name': "Hamonado (Sweet Glazed Pork)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Hamonado"},
+    {'meal_name': "Humba (Sweet Pork Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Humba"},
+    {'meal_name': "Inasal na manok (Grilled Chicken)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Inasal+na+Manok"},
+    {'meal_name': "Inihaw na liempo (Grilled Pork Belly)", 'category': "Grilled Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Inihaw+na+Liempo"},
+    {'meal_name': "Inun-unan (Fish Stewed in Vinegar)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Inun-unan"},
+    {'meal_name': "Kadyos-Baboy-Langka (Pigeon Peas, Pork, and Jackfruit Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Kadyos-Baboy-Langka"},
+    {'meal_name': "Kadyos Manok Ubad (Pigeon Peas, Chicken, and Banana Stalk Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Kadyos+Manok+Ubad"},
+    {'meal_name': "Kaldereta (Meat Stew in Tomato Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Kaldereta"},
+    {'meal_name': "Kinunot (Shredded Stingray or Shark in Coconut Milk)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Kinunot"},
+    {'meal_name': "Bicol Express (Pork Cooked in Coconut Milk and Chili)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Bicol+Express"},
+    {'meal_name': "Filipino Spaghetti (Sweet and Meaty Spaghetti)", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Filipino+Spaghetti"},
+    {'meal_name': "Pork Menudo (Pork Stew with Tomatoes and Potatoes)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Pork+Menudo"},
+    {'meal_name': "Chicken Tinola (Chicken Soup with Ginger and Papaya)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Chicken+Tinola"},
+    {'meal_name': "Arroz Caldo (Chicken Rice Porridge)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Arroz+Caldo"},
+    {'meal_name': "Pinakbet (Vegetable Stew with Shrimp Paste)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Pinakbet"},
+    {'meal_name': "Kare-Kare (Stew with Peanut Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Kare-Kare"},
+    {'meal_name': "Lumpia (Spring Rolls)", 'category': "Appetizer/Light Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Lumpia"},
+    {'meal_name': "Filipino Chicken Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Filipino+Chicken+Curry"},
+    {'meal_name': "Sinigang na Hipon (Sour Shrimp Soup)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Sinigang+na+Hipon"},
+    {'meal_name': "Beef Caldereta (Beef Stew in Tomato Sauce)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Beef+Caldereta"},
+    {'meal_name': "Bistek Tagalog (Beef Braised in Soy Sauce and Citrus)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Bistek+Tagalog"},
+    {'meal_name': "Adobong Pusit (Squid Adobo)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Adobong+Pusit"},
+    {'meal_name': "Tortang Talong (Eggplant Omelette)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Tortang+Talong"},
+    {'meal_name': "Lechon (Roasted Pig)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Lechon"},
 ]
 
 
