@@ -15,8 +15,8 @@ def load_meals_data(uploaded_file=None):
                 st.error("Unsupported file type. Please upload a CSV or Excel file.")
                 return pd.DataFrame() # Return empty DataFrame on error
 
-            # Ensure expected columns are present
-            required_columns = ['meal_name', 'category', 'best_seller']
+            # Ensure expected columns are present, including 'country'
+            required_columns = ['meal_name', 'category', 'best_seller', 'country']
             if not all(col in df.columns for col in required_columns):
                 st.error(f"Missing required columns in your file. Please ensure it has: {', '.join(required_columns)}")
                 return pd.DataFrame()
@@ -33,7 +33,8 @@ def load_meals_data(uploaded_file=None):
         # data = {
         #     'meal_name': ["Spicy Noodles", "Creamy Tomato Soup", "Grilled Cheese", "Garden Salad", "Chili Con Carne", "Fish and Chips", "Chocolate Cake"],
         #     'category': ["Warm Meal", "Soup", "Sandwich", "Salad", "Warm Meal", "Fried", "Dessert"],
-        #     'best_seller': [True, False, False, False, True, False, True]
+        #     'best_seller': [True, False, False, False, True, False, True],
+        #     'country': ["China", "Italy", "USA", "USA", "Mexico", "UK", "France"]
         # }
         # df = pd.DataFrame(data)
         # return df
@@ -72,6 +73,10 @@ if not st.session_state.meals_df.empty:
     all_categories = st.session_state.meals_df['category'].unique().tolist()
     selected_categories = st.sidebar.multiselect("Select Category", sorted(all_categories))
 
+    # Get unique countries from the current DataFrame
+    all_countries = st.session_state.meals_df['country'].unique().tolist()
+    selected_countries = st.sidebar.multiselect("Select Country", sorted(all_countries))
+
     show_best_sellers = st.sidebar.checkbox("Show Only Best Sellers")
     search_query = st.sidebar.text_input("Search by Meal Name", placeholder="e.g., chicken, soup")
 
@@ -80,6 +85,9 @@ if not st.session_state.meals_df.empty:
 
     if selected_categories:
         filtered_df = filtered_df[filtered_df['category'].isin(selected_categories)]
+
+    if selected_countries:
+        filtered_df = filtered_df[filtered_df['country'].isin(selected_countries)]
 
     if show_best_sellers:
         filtered_df = filtered_df[filtered_df['best_seller'] == True]
@@ -98,7 +106,7 @@ if not st.session_state.meals_df.empty:
         if st.button("✨ Surprise Me!"):
             if not st.session_state.meals_df.empty:
                 random_meal = st.session_state.meals_df.sample(1).iloc[0]
-                st.info(f"**{random_meal['meal_name']}** ({random_meal['category']})")
+                st.info(f"**{random_meal['meal_name']}** ({random_meal['category']}) from {random_meal['country']}")
                 if random_meal['best_seller']:
                     st.write("🏆 This is a **Best Seller!**")
             else:
@@ -115,6 +123,7 @@ if not st.session_state.meals_df.empty:
             with cols[index % 3]: # Cycle through the columns
                 st.info(f"**{row['meal_name']}**")
                 st.markdown(f"Category: `{row['category']}`")
+                st.markdown(f"Country: `{row['country']}`")
                 if row['best_seller']:
                     st.markdown("🏆 **Best Seller!**")
                 st.markdown("---") # Separator for each meal card
