@@ -3,7 +3,6 @@ import pandas as pd
 import random
 
 # Meal list (remains the same - data content, not UI text)
-# Meal list (remains the same - data content, not UI text)
 meal_list = [
     # Chilean Meals - Broad Type Categorization
     {'meal_name': "Pastel de Choclo Bake", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
@@ -210,7 +209,84 @@ meal_list = [
     {'meal_name': "Bistek Tagalog (Beef Braised in Soy Sauce and Citrus)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Often pan-seared or braised
     {'meal_name': "Adobong Pusit (Squid Adobo)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Stewed
     {'meal_name': "Tortang Talong (Eggplant Omelette)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Omelet
-    {'meal_name': "Lechon (Roasted Pig)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"}
+    {'meal_name': "Lechon (Roasted Pig)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Pancit Palabok (Noodle Dish with Shrimp Sauce)", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
+
+    # Scandinavian Meals - Broad Type Categorization
+    {'meal_name': "Gravlax (Cured Salmon)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"}, # Cured fish, light meal
+    {'meal_name': "Köttbullar (Swedish Meatballs)", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Meatballs
+    {'meal_name': "Smørrebrød (Danish Open-Faced Sandwich)", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
+    {'meal_name': "Smörgåsbord (Swedish Buffet)", 'category': "Variety", 'best_seller': random.choice([True, False]), 'broad_type': "Global & Fusion Favorites"}, # Buffet style, not a single meal type
+    {'meal_name': "Stegt Flæsk (Roast Pork)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Lamm i kål (Lamb and Cabbage Stew)", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Pickled Herring", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"}, # Light meal
+    {'meal_name': "Norwegian Fish Cakes with Dill Mayonnaise (Fiskekaker)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Fish cakes/patties
+    {'meal_name': "Danish Breaded Pork Patties (Krebinetter)", 'category': "Fried Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods"}, # Patties
+    {'meal_name': "Norwegian Fish Soup (Fiskesuppe)", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Danish Pork Roast (Flæskesteg)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Norwegian Fish Casserole (Fiskegrateng)", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+
+    # General Meals - Broad Type Categorization
+    {'meal_name': "Classic Chicken Roast", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Beef & Ale Stew", 'category': "Stew", 'best_seller': True, 'broad_type': "Soups & Stews"},
+    {'meal_name': "Spicy Lamb Curry", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"}, # Curry is a stew
+    {'meal_name': "Mushroom Risotto", 'category': "Pasta Dish", 'best_seller': True, 'broad_type': "Rice & Grain Bowls"}, # Risotto is a rice dish
+    {'meal_name': "Shepherd's Pie", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Chicken Tikka Masala", 'category': "Warm Meal", 'best_seller': True, 'broad_type': "Soups & Stews"}, # Curry is a stew
+    {'meal_name': "Hearty Beef Goulash", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Lemon Herb Roasted Chicken", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Spicy Chorizo and Bean Casserole", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Slow-Cooked Pulled Pork", 'category': "Warm Meal", 'best_seller': True, 'broad_type': "Specialty & Street Foods"}, # Often served in sandwiches/tacos, or as a main dish with a unique prep
+    {'meal_name': "Stuffed Bell Peppers with Quinoa", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"}, # Often baked
+    {'meal_name': "Beef Stroganoff with Noodles", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
+    {'meal_name': "Baked Salmon with Asparagus", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Chicken and Mushroom Pie", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Lentil Shepherd's Pie", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "Pork Chops with Apple Sauce", 'category': "Warm Meal", 'best_seller': random.choice([True, False]), 'broad_type': "Grilled & Pan-Seared"}, # Often pan-seared
+    {'meal_name': "Vegetable Stir-fry with Noodles", 'category': "Warm Meal", 'best_seller': False, 'broad_type': "Noodles & Pasta"},
+    {'meal_name': "Classic Meatloaf", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
+    {'meal_name': "BBQ Ribs", 'category': "Grilled Dish", 'best_seller': True, 'broad_type': "Grilled & Pan-Seared"},
+    {'meal_name': "Spinach and Ricotta Stuffed Shells", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta"},
+
+    # Soups
+    {'meal_name': "Creamy Tomato Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Chicken Noodle Soup", 'category': "Soup", 'best_seller': True, 'broad_type': "Soups & Stews"},
+    {'meal_name': "Butternut Squash Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Lentil and Vegetable Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Spicy Black Bean Soup", 'category': "Soup", 'best_seller': False, 'broad_type': "Soups & Stews"},
+    {'meal_name': "Potato Leek Soup", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Lobster Bisque", 'category': "Soup", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+
+    # Sandwiches
+    {'meal_name': "Classic BLT Sandwich", 'category': "Sandwich", 'best_seller': True, 'broad_type': "Sandwiches & Wraps"},
+    {'meal_name': "Grilled Cheese Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
+    {'meal_name': "Turkey Club Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
+    {'meal_name': "Roast Beef Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
+    {'meal_name': "Veggie Delight Sandwich", 'category': "Sandwich", 'best_seller': False, 'broad_type': "Sandwiches & Wraps"},
+    {'meal_name': "Pulled Pork Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
+    {'meal_name': "Chicken Salad Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
+    {'meal_name': "Tuna Melt Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
+    {'meal_name': "Falafel Pita Sandwich", 'category': "Sandwich", 'best_seller': random.choice([True, False]), 'broad_type': "Sandwiches & Wraps"},
+
+    # Salads
+    {'meal_name': "Chicken Caesar Salad", 'category': "Salad", 'best_seller': True, 'broad_type': "Salads & Light Meals"},
+    {'meal_name': "Greek Salad with Feta", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
+    {'meal_name': "Cobb Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
+    {'meal_name': "Quinoa Salad with Roasted Vegetables", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
+    {'meal_name': "Taco Salad with Beef", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
+    {'meal_name': "Pasta Salad with Pesto", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
+    {'meal_name': "Asian Chicken Salad", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
+    {'meal_name': "Lentil Salad with Herbs", 'category': "Salad", 'best_seller': random.choice([True, False]), 'broad_type': "Salads & Light Meals"},
+
+    # Stews
+    {'meal_name': "Hungarian Goulash", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Seafood Cioppino", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Chickpea and Spinach Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Brazilian Feijoada", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Spicy Sausage and Kale Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "Root Vegetable Stew", 'category': "Vegetarian Delight", 'best_seller': False, 'broad_type': "Soups & Stews"},
+    {'meal_name': "Moroccan Chicken Tagine", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
+    {'meal_name': "White Bean and Escarole Stew", 'category': "Stew", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews"},
 ]
 
 
