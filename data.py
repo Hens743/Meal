@@ -212,6 +212,7 @@ meal_list = [
     {'meal_name': "Lechon (Roasted Pig)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"}
 ]
 
+
 df = pd.DataFrame(meal_list)
 
 # --- Language Configuration ---
@@ -235,7 +236,7 @@ TEXT_CONTENT = {
         "category_label": "Category:",
         "no_meals_warning": "No meals found matching your criteria. Try adjusting your filters!",
         "footer": "Happy cooking! 🍳",
-        "language_select_label": "Select Language",
+        "language_toggle_label": "Switch to Spanish", # Label for the toggle
         # Translations for broad_type categories
         "broad_type_translations": {
             "Roasted & Baked Dishes": "Roasted & Baked Dishes",
@@ -266,7 +267,7 @@ TEXT_CONTENT = {
         "category_label": "Categoría:",
         "no_meals_warning": "No se encontraron comidas que coincidan con tus criterios. ¡Intenta ajustar tus filtros!",
         "footer": "¡Feliz cocina! 🍳",
-        "language_select_label": "Seleccionar Idioma",
+        "language_toggle_label": "Cambiar a Inglés", # Label for the toggle
         # Translations for broad_type categories
         "broad_type_translations": {
             "Roasted & Baked Dishes": "Platos Asados y Horno",
@@ -284,6 +285,14 @@ TEXT_CONTENT = {
 # Initialize session state for language if not already set
 if 'language' not in st.session_state:
     st.session_state.language = "en" # Default language is English
+
+# Callback function for the toggle
+def toggle_language():
+    if st.session_state.language_toggle: # If toggle is True (checked)
+        st.session_state.language = "es"
+    else: # If toggle is False (unchecked)
+        st.session_state.language = "en"
+    st.experimental_rerun() # Rerun the app to apply language changes
 
 # Get the current text content based on selected language
 current_text = TEXT_CONTENT[st.session_state.language]
@@ -377,25 +386,21 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Language Selector ---
-# Place the language selector at the top for easy access
-language_options = {"English": "en", "Español": "es"}
-selected_lang_display = st.selectbox(
-    current_text["language_select_label"],
-    options=list(language_options.keys()),
-    index=list(language_options.values()).index(st.session_state.language),
-    key="language_selector"
+# --- Language Toggle ---
+# Determine initial state of the toggle based on current language
+is_spanish = (st.session_state.language == "es")
+
+st.toggle(
+    label=current_text["language_toggle_label"],
+    value=is_spanish,
+    key="language_toggle",
+    on_change=toggle_language,
+    help="Toggle to switch between English and Spanish" # This help text will not change with language
 )
-# Check if the language actually changed to trigger a rerun
-if st.session_state.language != language_options[selected_lang_display]:
-    st.session_state.language = language_options[selected_lang_display]
-    st.experimental_rerun()
 
 # --- App Title and Description ---
 st.markdown(f"<h1 class='center-text'>{current_text['app_title']}</h1>", unsafe_allow_html=True)
 st.write(current_text["app_description"])
-
-
 
 ## Filter Your Meal Search
 
@@ -424,26 +429,22 @@ if len(broad_type_display_options_map) < 8:
 # Convert the map keys to a list for the selectbox options, sorted
 displayed_broad_types = [current_text["all_option"]] + sorted(list(broad_type_display_options_map.keys()))
 
-# Initialize session state for language if not already set
-if 'language' not in st.session_state:
-    st.session_state.language = "en" # Default language is English
+# Broad Type selection
+selected_broad_type_display_name = st.selectbox(
+    current_text["broad_type_select"],
+    displayed_broad_types,
+    index=0
+)
 
-# Callback function for the toggle
-def toggle_language():
-    if st.session_state.language_toggle: # If toggle is True (checked)
-        st.session_state.language = "es"
-    else: # If toggle is False (unchecked)
-        st.session_state.language = "en"
-    st.experimental_rerun() # Rerun the app to apply language changes
-
-# Get the current text content based on selected language
-current_text = TEXT_CONTENT[st.session_state.language]
+# Convert the selected display name back to its original broad_type for filtering
+if selected_broad_type_display_name == current_text["all_option"]:
+    selected_broad_type_for_filter = None # Use None to indicate "All"
+else:
+    selected_broad_type_for_filter = broad_type_display_options_map.get(selected_broad_type_display_name)
 
 
 # Best Seller checkbox
 filter_best_seller = st.checkbox(current_text["best_seller_checkbox"])
-
-
 
 ## Meal Ideas
 
@@ -497,7 +498,5 @@ if not filtered_df.empty:
         )
 else:
     st.warning(current_text["no_meals_warning"])
-
-
 
 st.markdown(f"<p class='center-text'>{current_text['footer']}</p>", unsafe_allow_html=True)
