@@ -197,11 +197,6 @@ def load_meals_data(uploaded_file=None):
             all_meals_data = original_meals + extended_meal_list
             
             df = pd.DataFrame(all_meals_data)
-            st.sidebar.info(f"Loaded {len(df)} hardcoded sample meals.")
-            return df
-        
-        st.sidebar.warning("No meal data loaded. Please upload a file or select 'Load Hardcoded Sample Data' above.")
-        return pd.DataFrame()
 
 # The rest of your Streamlit application code remains the same
 # Make sure to copy this updated load_meals_data function into your existing script.
