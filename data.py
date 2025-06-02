@@ -74,8 +74,20 @@ if not st.session_state.meals_df.empty:
     selected_categories = st.sidebar.multiselect("Select Category", sorted(all_categories))
 
     # Get unique countries from the current DataFrame
-    all_countries = st.session_state.meals_df['country'].unique().tolist()
-    selected_countries = st.sidebar.multiselect("Select Country", sorted(all_countries))
+    all_countries = sorted(st.session_state.meals_df['country'].unique().tolist())
+    st.sidebar.markdown("---") # Add a separator for country filter
+    st.sidebar.subheader("Filter by Country")
+    
+    # Initialize selected_countries in session_state if not present
+    if 'selected_countries' not in st.session_state:
+        st.session_state.selected_countries = []
+
+    # Create checkboxes for each country
+    temp_selected_countries = []
+    for country in all_countries:
+        if st.sidebar.checkbox(country, key=f"country_checkbox_{country}", value=(country in st.session_state.selected_countries)):
+            temp_selected_countries.append(country)
+    st.session_state.selected_countries = temp_selected_countries # Update the session state after all checkboxes are processed
 
     show_best_sellers = st.sidebar.checkbox("Show Only Best Sellers")
     search_query = st.sidebar.text_input("Search by Meal Name", placeholder="e.g., chicken, soup")
@@ -86,8 +98,9 @@ if not st.session_state.meals_df.empty:
     if selected_categories:
         filtered_df = filtered_df[filtered_df['category'].isin(selected_categories)]
 
-    if selected_countries:
-        filtered_df = filtered_df[filtered_df['country'].isin(selected_countries)]
+    # Apply country filter based on checkboxes
+    if st.session_state.selected_countries:
+        filtered_df = filtered_df[filtered_df['country'].isin(st.session_state.selected_countries)]
 
     if show_best_sellers:
         filtered_df = filtered_df[filtered_df['best_seller'] == True]
