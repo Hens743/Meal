@@ -227,7 +227,7 @@ TEXT_CONTENT = {
         "broad_type_select": "Choose a meal type:",
         "all_option": "All",
         "other_type": "Other Type", # Placeholder prefix for additional categories
-        "best_seller_checkbox": "Show only Best Sellers",
+        "best_seller_checkbox": "Show only Favorite",
         "results_header_prefix": "Discover",
         "results_header_suffix": "Meal Ideas!",
         "suggest_button": "Suggest a Random Meal",
@@ -258,7 +258,7 @@ TEXT_CONTENT = {
         "broad_type_select": "Elige un tipo de comida:",
         "all_option": "Todos",
         "other_type": "Otro Tipo", # Placeholder prefix for additional categories
-        "best_seller_checkbox": "Mostrar solo los más vendidos",
+        "best_seller_checkbox": "Mostrar solo los favoritos",
         "results_header_prefix": "¡Descubre",
         "results_header_suffix": "Ideas de Comida!",
         "suggest_button": "Sugerir una Comida Aleatoria",
