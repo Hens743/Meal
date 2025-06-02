@@ -4,45 +4,6 @@ import random
 
 # --- Data Loading Function ---
 def load_meals_data(uploaded_file=None):
-    # This function now provides more feedback on its execution
-    
-    if uploaded_file:
-        try:
-            st.info(f"Attempting to read uploaded file: '{uploaded_file.name}'. File size: {uploaded_file.size} bytes")
-            
-            if uploaded_file.name.endswith('.csv'):
-                df = pd.read_csv(uploaded_file)
-            elif uploaded_file.name.endswith(('.xls', '.xlsx')):
-                df = pd.read_excel(uploaded_file)
-            else:
-                st.error("Unsupported file type. Please upload a CSV or Excel file.")
-                return pd.DataFrame()
-
-            required_columns = ['meal_name', 'category', 'best_seller'] 
-            
-            st.info(f"Columns found in the file: {df.columns.tolist()}")
-            
-            missing_cols = [col for col in required_columns if col not in df.columns]
-            if missing_cols:
-                st.error(f"Critical Error: Your uploaded file is missing required columns. Please ensure it has: {', '.join(required_columns)}. Missing: {', '.join(missing_cols)}")
-                return pd.DataFrame()
-            
-            if not df.empty:
-                st.info(f"First 3 rows of loaded data:\n{df.head(3).to_string()}")
-            else:
-                st.warning("Warning: The file was read, but the DataFrame is empty. Please check your file content.")
-
-            if 'best_seller' in df.columns:
-                df['best_seller'] = df['best_seller'].astype(str).str.lower().isin(['yes', 'true', '1'])
-            
-            st.success("File successfully processed into DataFrame.")
-            return df
-        except Exception as e:
-            st.error(f"Error reading file: {e}. Please check your file content and format.")
-            st.info("Ensure your CSV/Excel file is not open in another program and is correctly formatted.")
-            return pd.DataFrame()
-    else:
-        if st.sidebar.checkbox("Load Hardcoded Sample Data (for testing)", value=False, key='load_hardcoded_checkbox'): 
             # Original small list
             original_meals = [
                 {'meal_name': "Sample Noodles", 'category': "Warm Meal", 'best_seller': True},
@@ -54,11 +15,6 @@ def load_meals_data(uploaded_file=None):
                 {'meal_name': "Sample Tacos", 'category': "Warm Meal", 'best_seller': False}
             ]
 
-            # Extended list of meals (150+ meals)
-            # Categories used: "Warm Meal", "Soup", "Sandwich", "Salad", "Stew", "Roast", 
-            # "Grilled Dish", "Savory Bake", "Pasta Dish", "Rice Bowl", "Seafood Special", "Vegetarian Delight"
-
-            # Chilean-inspired meal names are included in the list below
             extended_meal_list = [
                 # Chilean Inspired
                 {'meal_name': "Pastel de Choclo Bake", 'category': "Savory Bake", 'best_seller': random.choice([True, False])},
