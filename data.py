@@ -5,7 +5,7 @@ import random
 # Meal list (remains the same - data content, not UI text)
 meal_list = [
     # Chilean Meals - Broad Type Categorization
-    {'meal_name': "Pastel de Choclo Bake", 'category': "Savory Bake", 'favorite': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://delishglobe.com/wp-content/uploads/2025/01/Pastel-de-Choclo-Corn-and-Beef-Casserole"},
+    {'meal_name': "Pastel de Choclo Bake", 'category': "Savory Bake", 'favorite': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://delishglobe.com/wp-content/uploads/2025/01/Pastel-de-Choclo-Corn-and-Beef-Casserole.png"},
     {'meal_name': "Empanadas Pino (Beef)", 'category': "Savory Bake", 'favorite': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Empanadas+Pino"},
     {'meal_name': "Hearty Cazuela Chilena", 'category': "Stew", 'favorite': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Cazuela+Chilena"},
     {'meal_name': "Humitas Corn Parcels", 'category': "Warm Meal", 'favorite': random.choice([True, False]), 'broad_type': "Rice & Grain Bowls", 'image_url': "https://placehold.co/300x200/FFD700/000000?text=Humitas+Corn+Parcels"},
