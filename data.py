@@ -3,6 +3,7 @@ import pandas as pd
 import random
 
 # Meal list (remains the same - data content, not UI text)
+# Meal list (remains the same - data content, not UI text)
 meal_list = [
     # Chilean Meals - Broad Type Categorization
     {'meal_name': "Pastel de Choclo Bake", 'category': "Savory Bake", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes"},
