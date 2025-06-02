@@ -210,6 +210,7 @@ meal_list = [
     {'meal_name': "Adobong Pusit (Squid Adobo)", 'category': "Seafood Special", 'best_seller': random.choice([True, False]), 'broad_type': "Soups & Stews", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Adobong+Pusit"},
     {'meal_name': "Tortang Talong (Eggplant Omelette)", 'category': "Vegetarian Delight", 'best_seller': random.choice([True, False]), 'broad_type': "Specialty & Street Foods", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Tortang+Talong"},
     {'meal_name': "Lechon (Roasted Pig)", 'category': "Roast", 'best_seller': random.choice([True, False]), 'broad_type': "Roasted & Baked Dishes", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Lechon"},
+    {'meal_name': "Pancit Palabok (Noodle Dish with Shrimp Sauce)", 'category': "Pasta Dish", 'best_seller': random.choice([True, False]), 'broad_type': "Noodles & Pasta", 'image_url': "https://placehold.co/300x200/E6E6FA/000000?text=Pancit+Palabok"},
 ]
 
 
