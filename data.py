@@ -2,7 +2,27 @@ import streamlit as st
 import pandas as pd
 import random
 
-# --- LOAD DATA FROM EXTERNAL CSV FILE ---
+# This is the new function that loads your data
+@st.cache_data # <-- This is the magic decorator!
+def load_data(path):
+    """Loads data from a JSON file and caches it."""
+    try:
+        df = pd.read_json(path)
+        return df
+    except FileNotFoundError:
+        st.error(f"Error: {path} not found. Please make sure the file is in the correct directory.")
+        return None
+
+# --- APP SETUP ---
+# In your main script, replace the old try/except block with this single line:
+df = load_data("meals.json")
+
+# Add a check in case the file wasn't found
+if df is None:
+    st.stop()
+
+
+# --- LOAD DATA FROM EXTERNAL JSON FILE ---
 try:
     df = pd.read_json("meals.json")
 except FileNotFoundError:
