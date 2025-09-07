@@ -65,11 +65,14 @@ def toggle_favorite(meal_name):
     else:
         st.session_state.user_favorites.append(meal_name)
 
-# --- REUSABLE DISPLAY FUNCTION ---
+# --- REUSABLE DISPLAY FUNCTION (UPGRADED) ---
+# This single function now draws every meal card, including the new details.
 def display_meal_card(meal_row, text_labels):
+    """Displays a meal card with its image, details, and a favorite button."""
     is_favorite = meal_row['meal_name'] in st.session_state.user_favorites
     button_label = text_labels['unfavorite_button'] if is_favorite else text_labels['favorite_button']
     
+    # Display the meal name and favorite button
     col1, col2 = st.columns([4, 1])
     with col1:
         st.subheader(meal_row['meal_name'])
@@ -84,6 +87,27 @@ def display_meal_card(meal_row, text_labels):
     st.image(meal_row['image_url'], caption=meal_row['meal_name'])
     st.markdown(f"**{text_labels['broad_type_label']}** {text_labels['broad_type_translations'].get(meal_row['broad_type'], meal_row['broad_type'])}")
     st.markdown(f"**{text_labels['category_label']}** {meal_row['category']}")
+    
+    # --- NEW: Display additional recipe details ---
+    # We'll use columns to keep it tidy.
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Prep Time", f"{int(meal_row['prep_time_mins'])} min")
+    col2.metric("Cook Time", f"{int(meal_row['cook_time_mins'])} min")
+    col3.metric("Servings", f"{int(meal_row['servings'])} 👤")
+    
+    # --- NEW: Create a collapsible section for ingredients ---
+    with st.expander("Show Ingredients"):
+        # Split the ingredients string from the CSV into a list
+        ingredients_list = meal_row['ingredients'].split(';')
+        # Display each ingredient as a bullet point
+        for ingredient in ingredients_list:
+            st.markdown(f"- {ingredient.strip()}")
+            
+    # --- NEW: Add a button to link to the full recipe ---
+    # This button will only appear if a URL is provided in the CSV
+    if pd.notna(meal_row['recipe_url']) and meal_row['recipe_url'].startswith('http'):
+        st.link_button("View Full Recipe ➞", meal_row['recipe_url'])
+
     st.markdown("---")
 
 # --- APP SETUP ---
