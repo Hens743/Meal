@@ -431,7 +431,10 @@ if filter_best_seller:
 if not filtered_df.empty:
     st.markdown(f"<h2>Discover {len(filtered_df)} Meal Ideas!</h2>", unsafe_allow_html=True)
 
-    # Random meal suggestion
+    # <<< ENDRING STARTER HER >>>
+    # Vi sjekker om knappen er trykket. Hvis den er det, viser vi BARE den tilfeldige retten.
+    # Hvis ikke, går vi til 'else'-blokken og viser hele listen.
+    
     if st.button("Suggest a Random Meal"):
         random_meal = filtered_df.sample(1).iloc[0]
         st.markdown(
@@ -445,23 +448,25 @@ if not filtered_df.empty:
             </div>
             """, unsafe_allow_html=True
         )
-        st.markdown("---") # Separator after random suggestion
+    # Vi legger til en 'else'-blokk her. Denne koden kjøres kun hvis knappen IKKE er trykket.
+    else:
+        st.markdown("<h3>All Matching Meals:</h3>", unsafe_allow_html=True)
 
-    st.markdown("<h2>All Matching Meals:</h2>", unsafe_allow_html=True)
-
-    # Display all filtered meals in a mobile-friendly card format
-    for index, row in filtered_df.iterrows():
-        st.markdown(
-            f"""
-            <div class='meal-card'>
-                <h3>{row['meal_name']} {
-                    "<span class='best-seller-tag'>⭐ Best Seller</span>" if row['best_seller'] else ""
-                }</h3>
-                <p><strong>Broad Type:</strong> {row['broad_type']}</p>
-                <p><strong>Category:</strong> {row['category']}</p>
-            </div>
-            """, unsafe_allow_html=True
-        )
+        # Display all filtered meals in a mobile-friendly card format
+        for index, row in filtered_df.iterrows():
+            st.markdown(
+                f"""
+                <div class='meal-card'>
+                    <h3>{row['meal_name']} {
+                        "<span class='best-seller-tag'>⭐ Best Seller</span>" if row['best_seller'] else ""
+                    }</h3>
+                    <p><strong>Broad Type:</strong> {row['broad_type']}</p>
+                    <p><strong>Category:</strong> {row['category']}</p>
+                </div>
+                """, unsafe_allow_html=True
+            )
+    # <<< ENDRING SLUTTER HER >>>
+            
 else:
     st.warning("No meals found matching your criteria. Try adjusting your filters!")
 
