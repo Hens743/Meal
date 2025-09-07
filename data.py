@@ -4,7 +4,7 @@ import random
 
 # --- LOAD DATA FROM EXTERNAL CSV FILE ---
 try:
-    df = pd.read_csv("meals.csv")
+    df = pd.read_csv("meals_with_images.csv")
 except FileNotFoundError:
     st.error("Error: meals.csv not found. Please create this file in the same directory as your app.")
     st.stop()
