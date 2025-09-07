@@ -4,9 +4,9 @@ import random
 
 # --- LOAD DATA FROM EXTERNAL CSV FILE ---
 try:
-    df = pd.read_csv("meals_with_images.csv") #("meals.csv")
+    df = pd.read_json("meals.json")
 except FileNotFoundError:
-    st.error("Error: meals.csv not found. Please create this file in the same directory as your app.")
+    st.error("Error: meals.json not found. Please create this file in the same directory as your app.")
     st.stop()
 
 # --- LANGUAGE CONFIGURATION ---
