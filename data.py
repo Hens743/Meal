@@ -90,8 +90,7 @@ def display_meal_card(meal_row, text_labels):
     with col2:
         st.button(
             button_label,
-            # FIXED: Use a guaranteed unique key to prevent errors
-            key=f"fav_{meal_row['recipe_url']}",
+            key=f"fav_{meal_row['recipe_url']}", 
             on_click=toggle_favorite,
             args=(meal_row['meal_name'],)
         )
