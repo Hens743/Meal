@@ -179,7 +179,7 @@ if not filtered_df.empty:
         suggested_url = suggested_meal_series['recipe_url']
         main_display_df = main_display_df[main_display_df['recipe_url'] != suggested_url]
 
-    st.markdown(f"### {current_text['all_matching_meals']}")
+    st.markdown(f"### {current_text['all_matching_meals']}") 
     # Loop over the corrected dataframe that has no duplicates
     for _, row in main_display_df.iterrows():
         display_meal_card(row, current_text)
