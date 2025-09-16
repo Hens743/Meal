@@ -2,8 +2,7 @@ import streamlit as st
 import pandas as pd
 import random
 
-# This is the new function that loads your data
-@st.cache_data # <-- This is the magic decorator!
+@st.cache_data
 def load_data(path):
     """Loads data from a JSON file and caches it."""
     try:
@@ -14,19 +13,11 @@ def load_data(path):
         return None
 
 # --- APP SETUP ---
-# In your main script, replace the old try/except block with this single line:
+# This is the only block needed to load the data.
 df = load_data("meals.json")
 
 # Add a check in case the file wasn't found
 if df is None:
-    st.stop()
-
-
-# --- LOAD DATA FROM EXTERNAL JSON FILE ---
-try:
-    df = pd.read_json("meals.json")
-except FileNotFoundError:
-    st.error("Error: meals.json not found. Please create this file in the same directory as your app.")
     st.stop()
 
 # --- LANGUAGE CONFIGURATION ---
@@ -74,6 +65,8 @@ if 'language' not in st.session_state:
     st.session_state.language = "en"
 if 'user_favorites' not in st.session_state:
     st.session_state.user_favorites = []
+if 'suggested_meal' not in st.session_state:
+    st.session_state.suggested_meal = None
 
 # --- CALLBACK FUNCTIONS ---
 def toggle_language():
@@ -86,21 +79,20 @@ def toggle_favorite(meal_name):
         st.session_state.user_favorites.append(meal_name)
 
 # --- REUSABLE DISPLAY FUNCTION (UPGRADED) ---
-# This single function now draws every meal card, including the new details.
 def display_meal_card(meal_row, text_labels):
     """Displays a meal card with its image, details, and a favorite button."""
     is_favorite = meal_row['meal_name'] in st.session_state.user_favorites
     button_label = text_labels['unfavorite_button'] if is_favorite else text_labels['favorite_button']
     
-    # Display the meal name and favorite button
     col1, col2 = st.columns([4, 1])
     with col1:
         st.subheader(meal_row['meal_name'])
     with col2:
         st.button(
-            button_label, 
-            key=f"fav_{meal_row['meal_name']}", 
-            on_click=toggle_favorite, 
+            button_label,
+            # FIXED: Use a guaranteed unique key to prevent errors
+            key=f"fav_{meal_row['recipe_url']}",
+            on_click=toggle_favorite,
             args=(meal_row['meal_name'],)
         )
 
@@ -108,23 +100,18 @@ def display_meal_card(meal_row, text_labels):
     st.markdown(f"**{text_labels['broad_type_label']}** {text_labels['broad_type_translations'].get(meal_row['broad_type'], meal_row['broad_type'])}")
     st.markdown(f"**{text_labels['category_label']}** {meal_row['category']}")
     
-    # --- NEW: Display additional recipe details ---
-    # We'll use columns to keep it tidy.
     col1, col2, col3 = st.columns(3)
     col1.metric("Prep Time", f"{int(meal_row['prep_time_mins'])} min")
     col2.metric("Cook Time", f"{int(meal_row['cook_time_mins'])} min")
     col3.metric("Servings", f"{int(meal_row['servings'])} 👤")
     
-    # --- NEW: Create a collapsible section for ingredients ---
     with st.expander("Show Ingredients"):
-        # Split the ingredients string from the CSV into a list
-        ingredients_list = meal_row['ingredients'].split(';')
-        # Display each ingredient as a bullet point
+        # FIXED: Safely handle potentially missing ingredient data
+        ingredients_list = (meal_row['ingredients'] or '').split(';')
         for ingredient in ingredients_list:
-            st.markdown(f"- {ingredient.strip()}")
-            
-    # --- NEW: Add a button to link to the full recipe ---
-    # This button will only appear if a URL is provided in the CSV
+            if ingredient.strip():
+                st.markdown(f"- {ingredient.strip()}")
+                
     if pd.notna(meal_row['recipe_url']) and meal_row['recipe_url'].startswith('http'):
         st.link_button("View Full Recipe ➞", meal_row['recipe_url'])
 
@@ -135,17 +122,14 @@ current_text = TEXT_CONTENT[st.session_state.language]
 st.set_page_config(
     page_title=current_text["page_title"],
     layout="centered",
-    # initial_sidebar_state="collapsed" # You can choose 'expanded' or 'auto' as well
 )
 
 # --- SIDEBAR CONTROLS ---
-# All filters are now neatly tucked away in the sidebar.
 st.sidebar.header(current_text["filter_header"])
 
-# Language toggle is also moved to the sidebar for consistency
 is_spanish = (st.session_state.language == "es")
 st.sidebar.toggle(label=current_text["language_toggle_label"], value=is_spanish, key="language_toggle", on_change=toggle_language)
-st.sidebar.markdown("---") # Add a separator
+st.sidebar.markdown("---")
 
 unique_broad_types = sorted(df['broad_type'].unique().tolist())
 broad_type_map = { current_text["broad_type_translations"].get(bt, bt): bt for bt in unique_broad_types }
@@ -163,20 +147,27 @@ filtered_df = df.copy()
 if selected_display_name != current_text["all_option"]:
     internal_name = broad_type_map[selected_display_name]
     filtered_df = filtered_df[filtered_df['broad_type'] == internal_name]
+    # Reset suggestion if filters change
+    st.session_state.suggested_meal = None
 if filter_favorite:
     filtered_df = filtered_df[filtered_df['meal_name'].isin(st.session_state.user_favorites)]
+    # Reset suggestion if filters change
+    st.session_state.suggested_meal = None
 
-# --- DISPLAY RESULTS on the main page ---
+# --- DISPLAY RESULTS on the main page (IMPROVED UX) ---
 if not filtered_df.empty:
     st.header(f"{current_text['results_header_prefix']} {len(filtered_df)} {current_text['results_header_suffix']}")
     
     if st.button(current_text["suggest_button"]):
-        random_meal = filtered_df.sample(1).iloc[0]
-        display_meal_card(random_meal, current_text)
-    else:
-        st.markdown(f"### {current_text['all_matching_meals']}")
-        for _, row in filtered_df.iterrows():
-            display_meal_card(row, current_text)
+        st.session_state.suggested_meal = filtered_df.sample(1).iloc[0].to_dict()
+    
+    if st.session_state.suggested_meal:
+        suggested_meal_series = pd.Series(st.session_state.suggested_meal)
+        display_meal_card(suggested_meal_series, current_text)
+
+    st.markdown(f"### {current_text['all_matching_meals']}")
+    for _, row in filtered_df.iterrows():
+        display_meal_card(row, current_text)
 else:
     st.warning(current_text["no_meals_warning"])
 
