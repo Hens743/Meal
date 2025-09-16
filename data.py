@@ -13,10 +13,7 @@ def load_data(path):
         return None
 
 # --- APP SETUP ---
-# This is the only block needed to load the data.
 df = load_data("meals.json")
-
-# Add a check in case the file wasn't found
 if df is None:
     st.stop()
 
@@ -78,9 +75,8 @@ def toggle_favorite(meal_name):
     else:
         st.session_state.user_favorites.append(meal_name)
 
-# --- REUSABLE DISPLAY FUNCTION (UPGRADED) ---
+# --- REUSABLE DISPLAY FUNCTION ---
 def display_meal_card(meal_row, text_labels):
-    """Displays a meal card with its image, details, and a favorite button."""
     is_favorite = meal_row['meal_name'] in st.session_state.user_favorites
     button_label = text_labels['unfavorite_button'] if is_favorite else text_labels['favorite_button']
     
@@ -90,7 +86,7 @@ def display_meal_card(meal_row, text_labels):
     with col2:
         st.button(
             button_label,
-            key=f"fav_{meal_row['recipe_url']}", 
+            key=f"fav_{meal_row['recipe_url']}",
             on_click=toggle_favorite,
             args=(meal_row['meal_name'],)
         )
@@ -105,7 +101,6 @@ def display_meal_card(meal_row, text_labels):
     col3.metric("Servings", f"{int(meal_row['servings'])} 👤")
     
     with st.expander("Show Ingredients"):
-        # FIXED: Safely handle potentially missing ingredient data
         ingredients_list = (meal_row['ingredients'] or '').split(';')
         for ingredient in ingredients_list:
             if ingredient.strip():
@@ -133,9 +128,20 @@ st.sidebar.markdown("---")
 unique_broad_types = sorted(df['broad_type'].unique().tolist())
 broad_type_map = { current_text["broad_type_translations"].get(bt, bt): bt for bt in unique_broad_types }
 display_options = [current_text["all_option"]] + list(broad_type_map.keys())
-selected_display_name = st.sidebar.selectbox(current_text["broad_type_select"], display_options)
 
-filter_favorite = st.sidebar.checkbox(current_text["favorite_checkbox"])
+def on_filter_change():
+    st.session_state.suggested_meal = None
+
+selected_display_name = st.sidebar.selectbox(
+    current_text["broad_type_select"], 
+    display_options,
+    on_change=on_filter_change
+)
+
+filter_favorite = st.sidebar.checkbox(
+    current_text["favorite_checkbox"],
+    on_change=on_filter_change
+)
 
 # --- MAIN PAGE CONTENT ---
 st.title(current_text['app_title'])
@@ -146,26 +152,39 @@ filtered_df = df.copy()
 if selected_display_name != current_text["all_option"]:
     internal_name = broad_type_map[selected_display_name]
     filtered_df = filtered_df[filtered_df['broad_type'] == internal_name]
-    # Reset suggestion if filters change
-    st.session_state.suggested_meal = None
 if filter_favorite:
     filtered_df = filtered_df[filtered_df['meal_name'].isin(st.session_state.user_favorites)]
-    # Reset suggestion if filters change
-    st.session_state.suggested_meal = None
 
-# --- DISPLAY RESULTS on the main page (IMPROVED UX) ---
+# --- DISPLAY RESULTS ---
 if not filtered_df.empty:
     st.header(f"{current_text['results_header_prefix']} {len(filtered_df)} {current_text['results_header_suffix']}")
     
     if st.button(current_text["suggest_button"]):
-        st.session_state.suggested_meal = filtered_df.sample(1).iloc[0].to_dict()
-    
+        # Prevent suggesting the same meal if it's already suggested and the only one available
+        if len(filtered_df) > 1 and st.session_state.suggested_meal:
+            current_suggestion_url = st.session_state.suggested_meal.get('recipe_url')
+            st.session_state.suggested_meal = filtered_df[filtered_df['recipe_url'] != current_suggestion_url].sample(1).iloc[0].to_dict()
+        else:
+            st.session_state.suggested_meal = filtered_df.sample(1).iloc[0].to_dict()
+
+    # --- START OF THE FIX ---
+    # Create a copy of the dataframe to display in the main list
+    main_display_df = filtered_df.copy()
+
+    # If a meal has been suggested, display it first...
     if st.session_state.suggested_meal:
         suggested_meal_series = pd.Series(st.session_state.suggested_meal)
         display_meal_card(suggested_meal_series, current_text)
+        
+        # ...and then remove it from the main display list to avoid duplication.
+        suggested_url = suggested_meal_series['recipe_url']
+        main_display_df = main_display_df[main_display_df['recipe_url'] != suggested_url]
+
+    # --- END OF THE FIX ---
 
     st.markdown(f"### {current_text['all_matching_meals']}")
-    for _, row in filtered_df.iterrows():
+    # Loop over the potentially smaller dataframe
+    for _, row in main_display_df.iterrows():
         display_meal_card(row, current_text)
 else:
     st.warning(current_text["no_meals_warning"])
