@@ -167,6 +167,25 @@ if not filtered_df.empty:
         else:
             st.session_state.suggested_meal = filtered_df.sample(1).iloc[0].to_dict()
 
+    # Create a copy of the dataframe to display in the main list
+    main_display_df = filtered_df.copy()
+
+    # If a meal has been suggested, display it first...
+    if st.session_state.suggested_meal:
+        suggested_meal_series = pd.Series(st.session_state.suggested_meal)
+        display_meal_card(suggested_meal_series, current_text)
+        
+        # ...and then remove it from the main display list to avoid duplication.
+        suggested_url = suggested_meal_series['recipe_url']
+        main_display_df = main_display_df[main_display_df['recipe_url'] != suggested_url]
+
+    st.markdown(f"### {current_text['all_matching_meals']}")
+    # Loop over the corrected dataframe that has no duplicates
+    for _, row in main_display_df.iterrows():
+        display_meal_card(row, current_text)
+else:
+    st.warning(current_text["no_meals_warning"])
+
     # --- START OF THE FIX ---
     # Create a copy of the dataframe to display in the main list
     main_display_df = filtered_df.copy()
